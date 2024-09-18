@@ -54,6 +54,8 @@ class AntiDebugActivity : AppCompatActivity() {
         val debugStatus = getProcStatStatus()
         // 获取wchan trace标识
         val wchanStatus = getWchanStatus()
+        // ro.debuggable
+        val isDeviceDebuggable = isDeviceDebuggable()
 
         // 检测 JDWP 端口时使用协程的 IO 线程
         val jdwpDetected = withContext(Dispatchers.IO) {
@@ -67,9 +69,11 @@ class AntiDebugActivity : AppCompatActivity() {
         debugInfoBuilder.append("TracerPid: ").append(tracerPid).append("\n")
         debugInfoBuilder.append("状态: ").append(debugStatus).append("\n")
         debugInfoBuilder.append("Wchan 状态: ").append(wchanStatus).append("\n")
+        debugInfoBuilder.append("ro.debuggable: ").append(isDeviceDebuggable).append("\n")
 
         if (debuggerConnected || waitingForDebugger || tracerPid != 0 || jdwpDetected
-            || debugStatus == "停止（可能是被调试状态）" || wchanStatus.contains("trace")) {
+            || debugStatus == "停止（可能是被调试状态）" || wchanStatus.contains("trace")
+        ) {
             debugInfoBuilder.append("\nApp is being debugged!\n")
         } else {
             debugInfoBuilder.append("\nApp is not being debugged.\n")
@@ -158,6 +162,21 @@ class AntiDebugActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         return "无法获取调试状态"
+    }
+
+    private fun isDeviceDebuggable(): Boolean {
+        try {
+            // 执行 getprop 命令获取 ro.debuggable 属性
+            val process = Runtime.getRuntime().exec("getprop ro.debuggable")
+            val reader = process.inputStream.bufferedReader()
+            val result = reader.readLine()
+
+            // 判断结果是否为 "1"
+            return result == "1"
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return false
     }
 
 }
