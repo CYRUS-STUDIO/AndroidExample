@@ -68,7 +68,8 @@ class AntiDebugActivity : AppCompatActivity() {
         debugInfoBuilder.append("状态: ").append(debugStatus).append("\n")
         debugInfoBuilder.append("Wchan 状态: ").append(wchanStatus).append("\n")
 
-        if (debuggerConnected || waitingForDebugger || tracerPid != 0 || jdwpDetected) {
+        if (debuggerConnected || waitingForDebugger || tracerPid != 0 || jdwpDetected
+            || debugStatus == "停止（可能是被调试状态）" || wchanStatus.contains("trace")) {
             debugInfoBuilder.append("\nApp is being debugged!\n")
         } else {
             debugInfoBuilder.append("\nApp is not being debugged.\n")
