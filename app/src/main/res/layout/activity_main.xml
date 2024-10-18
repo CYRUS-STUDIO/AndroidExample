@@ -26,4 +26,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/debugButton" />
 
+    <Button
+        android:id="@+id/sigtrapAntiDebugButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="SIGTRAP 反调试"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/native_button" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

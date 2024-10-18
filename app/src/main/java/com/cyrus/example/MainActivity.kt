@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.cyrus.example.antidebug.AntiDebug
 import com.cyrus.example.antidebug.AntiDebugActivity
 
 class MainActivity : AppCompatActivity() {
@@ -32,6 +33,18 @@ class MainActivity : AppCompatActivity() {
             // 调用native方法并显示Toast
             val message = getNativeString()
             Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        }
+
+
+        // SIGTRAP 反调试
+        val sigtrapAntiDebugButton: Button = findViewById(R.id.sigtrapAntiDebugButton)
+        sigtrapAntiDebugButton.setOnClickListener {
+            val debuggerDetected = AntiDebug.isDebuggerDetected()
+            if (debuggerDetected) {
+                Toast.makeText(this, "Debugger Detected", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "No Debugger Detected", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
