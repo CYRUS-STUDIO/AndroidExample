@@ -2,16 +2,16 @@ package com.cyrus.example
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cyrus.example.antidebug.AntiDebug
 import com.cyrus.example.antidebug.AntiDebugActivity
+import com.cyrus.example.jniexample.JNIExampleActivity
+
 
 class MainActivity : AppCompatActivity() {
-
-    // 声明native方法
-    external fun getNativeString(): String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,16 +25,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // 加载native库
-        System.loadLibrary("native-lib")
-
-        val nativeButton = findViewById<Button>(R.id.native_button)
-        nativeButton.setOnClickListener {
-            // 调用native方法并显示Toast
-            val message = getNativeString()
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        val jniExampleButton = findViewById<Button>(R.id.button_jni_example)
+        jniExampleButton.setOnClickListener { v: View? ->
+            val intent = Intent(
+                this@MainActivity,
+                JNIExampleActivity::class.java
+            )
+            startActivity(intent)
         }
-
 
         // SIGTRAP 反调试
         val sigtrapAntiDebugButton: Button = findViewById(R.id.sigtrapAntiDebugButton)

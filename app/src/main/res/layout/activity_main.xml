@@ -17,16 +17,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/native_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Call Native"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/debugButton" />
-
-    <Button
         android:id="@+id/sigtrapAntiDebugButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +24,18 @@
         android:text="SIGTRAP 反调试"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/native_button" />
+        app:layout_constraintTop_toBottomOf="@id/debugButton" />
+
+
+    <Button
+        android:id="@+id/button_jni_example"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="JNI Example"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sigtrapAntiDebugButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
