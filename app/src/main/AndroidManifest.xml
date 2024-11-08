@@ -16,6 +16,9 @@
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
         <activity
+            android:name=".assembly.AssemblyActivity"
+            android:exported="false" />
+        <activity
             android:name=".jniexample.JNIExampleActivity"
             android:exported="false" />
         <activity

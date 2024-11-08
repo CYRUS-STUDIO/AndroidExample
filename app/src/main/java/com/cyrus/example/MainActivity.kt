@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cyrus.example.antidebug.AntiDebug
 import com.cyrus.example.antidebug.AntiDebugActivity
+import com.cyrus.example.assembly.AssemblyActivity
 import com.cyrus.example.jniexample.JNIExampleActivity
 
 
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // JNI调用示例
         val jniExampleButton = findViewById<Button>(R.id.button_jni_example)
         jniExampleButton.setOnClickListener { v: View? ->
             val intent = Intent(
@@ -43,6 +45,16 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "No Debugger Detected", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        // 汇编
+        val assemblyButton: Button = findViewById(R.id.button_assembly)
+        assemblyButton.setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                AssemblyActivity::class.java
+            )
+            startActivity(intent)
         }
     }
 }

@@ -6,6 +6,9 @@ find_library( # Sets the name of the path variable.
         # Specifies the NDK library that you want CMake to locate.
         log)
 
+## JNI示例 ##########################################################################################
+
+
 add_library( # Sets the name of the library.
         native-lib
 
@@ -23,6 +26,7 @@ target_link_libraries( # Specifies the target library.
         # included in the NDK.
         ${log-lib})
 
+## 反调试 ###########################################################################################
 
 add_library( # 库名称
         antidebug
@@ -36,4 +40,20 @@ add_library( # 库名称
 
 target_link_libraries( # 绑定库到 log 库
         antidebug
+        ${log-lib})
+
+
+## 内联汇编 ##########################################################################################
+
+add_library( # 设置库的名称
+        assembly-lib
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        assembly-lib.cpp)
+
+target_link_libraries( # 将 log 库链接到目标库
+        assembly-lib
         ${log-lib})

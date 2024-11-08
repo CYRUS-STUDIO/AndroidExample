@@ -2,9 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".assembly.AssemblyActivity"
+    tools:ignore="HardcodedText">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -17,31 +19,26 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/debugButton"
+            android:id="@+id/button_encrypt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="反调试检测" />
+            android:text="内联汇编加密" />
 
         <Button
-            android:id="@+id/sigtrapAntiDebugButton"
+            android:id="@+id/button_decrypt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="SIGTRAP 反调试" />
+            android:text="内联汇编解密" />
+
 
         <Button
-            android:id="@+id/button_jni_example"
+            android:id="@+id/button_compatible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="JNI Example" />
+            android:text="内联汇编兼容不同 CPU 架构" />
 
-        <Button
-            android:id="@+id/button_assembly"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="汇编" />
 
     </LinearLayout>
 

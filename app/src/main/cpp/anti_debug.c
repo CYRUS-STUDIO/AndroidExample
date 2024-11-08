@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <android/log.h>
 
-#define LOG_TAG "AntiDebug"
+#define LOG_TAG "anti_debug.c"
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
 
 // 标志变量，判断 SIGTRAP 是否被捕获
