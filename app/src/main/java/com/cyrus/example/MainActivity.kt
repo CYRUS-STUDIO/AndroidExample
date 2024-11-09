@@ -10,6 +10,7 @@ import com.cyrus.example.antidebug.AntiDebug
 import com.cyrus.example.antidebug.AntiDebugActivity
 import com.cyrus.example.assembly.AssemblyActivity
 import com.cyrus.example.jniexample.JNIExampleActivity
+import com.cyrus.example.syscall.SyscallActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -48,11 +49,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         // 汇编
-        val assemblyButton: Button = findViewById(R.id.button_assembly)
-        assemblyButton.setOnClickListener {
+        findViewById<Button>(R.id.button_assembly).setOnClickListener {
             val intent = Intent(
                 this@MainActivity,
                 AssemblyActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // 系统调用 (syscall)
+        findViewById<Button>(R.id.button_syscall).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                SyscallActivity::class.java
             )
             startActivity(intent)
         }

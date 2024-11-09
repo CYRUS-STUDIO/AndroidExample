@@ -57,3 +57,50 @@ add_library( # 设置库的名称
 target_link_libraries( # 将 log 库链接到目标库
         assembly-lib
         ${log-lib})
+
+## syscall ##########################################################################################
+
+# 启用 C 和汇编语言的支持
+enable_language(C ASM)
+
+# 根据系统处理器架构选择不同的汇编文件
+if (CMAKE_SYSTEM_PROCESSOR MATCHES "aarch")  # 检查当前系统是否为 AArch64 (ARM 64-bit) 架构
+    # 为 `syscall64.s` 设置编译标志
+    # `-x assembler-with-cpp` 表示使用 C 预处理器来编译汇编文件
+    set_source_files_properties(syscall64.s PROPERTIES COMPILE_FLAGS "-x assembler-with-cpp")
+
+    # 添加一个共享库 (Shared Library)
+    add_library(
+            syscall-lib          # 设置库的名称为 `syscall-lib`
+
+            SHARED               # 指定库的类型为共享库
+
+            syscall64.s          # 添加 ARM64 汇编源文件
+
+            syscall-lib.cpp      # 添加 C++ 源文件
+    )
+
+    # 如果系统处理器架构为 ARM (ARM 32-bit)
+elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "arm")
+    # 为 `syscall32.s` 设置编译标志
+    # `-x assembler-with-cpp` 表示使用 C 预处理器来编译汇编文件
+    set_source_files_properties(syscall32.s PROPERTIES COMPILE_FLAGS "-x assembler-with-cpp")
+
+    # 添加一个共享库 (Shared Library)
+    add_library(
+            syscall-lib          # 设置库的名称为 `syscall-lib`
+
+            SHARED               # 指定库的类型为共享库
+
+            syscall32.s          # 添加 ARM 32 位汇编源文件
+
+            syscall-lib.cpp      # 添加 C++ 源文件
+    )
+endif ()
+
+# 链接库依赖项
+target_link_libraries(
+        syscall-lib
+
+        ${log-lib}
+)
