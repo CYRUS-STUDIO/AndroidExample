@@ -6,6 +6,9 @@ find_library( # Sets the name of the path variable.
         # Specifies the NDK library that you want CMake to locate.
         log)
 
+# 全局启用指令替换
+add_definitions("-mllvm -sub")
+
 ## JNI示例 ##########################################################################################
 
 
@@ -98,9 +101,28 @@ elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "arm")
     )
 endif ()
 
-# 链接库依赖项
-target_link_libraries(
+target_link_libraries( # 将 log 库链接到目标库
         syscall-lib
-
         ${log-lib}
 )
+
+## OLLVM ##########################################################################################
+
+add_library( # 设置库的名称
+        ollvm-lib
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        ollvm-lib.cpp)
+
+# 为 ollvm-lib 动态库启用虚假控制流
+target_compile_options(
+        ollvm-lib
+        PRIVATE
+        -mllvm -bcf)
+
+target_link_libraries( # 将 log 库链接到目标库
+        ollvm-lib
+        ${log-lib})
