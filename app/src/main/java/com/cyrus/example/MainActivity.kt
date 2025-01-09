@@ -12,6 +12,7 @@ import com.cyrus.example.assembly.AssemblyActivity
 import com.cyrus.example.jniexample.JNIExampleActivity
 import com.cyrus.example.ollvm.OLLVMActivity
 import com.cyrus.example.syscall.SyscallActivity
+import com.cyrus.example.vmp.VMPActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -72,6 +73,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 OLLVMActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // VMP
+        findViewById<Button>(R.id.button_vmp).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                VMPActivity::class.java
             )
             startActivity(intent)
         }

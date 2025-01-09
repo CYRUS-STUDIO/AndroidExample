@@ -2,10 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:ignore="HardcodedText">
+    tools:context=".vmp.VMPActivity">
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -18,53 +19,33 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/debugButton"
+            android:id="@+id/button_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="反调试检测" />
+            android:text="Sign算法" />
 
         <Button
-            android:id="@+id/sigtrapAntiDebugButton"
+            android:id="@+id/button_sign_vmp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="SIGTRAP 反调试" />
+            android:text="Sign算法（VMP）" />
 
         <Button
-            android:id="@+id/button_jni_example"
+            android:id="@+id/button_const_string"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="JNI Example" />
+            android:text="const-string" />
 
         <Button
-            android:id="@+id/button_assembly"
+            android:id="@+id/button_invoke_static"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="汇编" />
-
-        <Button
-            android:id="@+id/button_syscall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="syscall" />
-
-        <Button
-            android:id="@+id/button_ollvm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="OLLVM" />
-
-        <Button
-            android:id="@+id/button_vmp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="VMP" />
+            android:text="invoke-static" />
 
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

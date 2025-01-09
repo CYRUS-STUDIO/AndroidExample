@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.cyrus.example"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -57,11 +57,10 @@ android {
         compose = true
     }
     ndkVersion = "27.1.12297006"
-
 }
 
 dependencies {
-
+    implementation(project(":vmp"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

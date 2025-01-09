@@ -126,3 +126,19 @@ target_compile_options(
 target_link_libraries( # 将 log 库链接到目标库
         ollvm-lib
         ${log-lib})
+
+
+## VMP ##########################################################################################
+
+add_library( # 设置库的名称
+        vmp-lib
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        vmp-lib.cpp)
+
+target_link_libraries( # 将 log 库链接到目标库
+        vmp-lib
+        ${log-lib})
