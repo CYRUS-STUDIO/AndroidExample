@@ -67,8 +67,9 @@ class VMPActivity : AppCompatActivity() {
 
             // 模拟字节码输入
             val bytecode = byteArrayOf(
-                0x1A, 0x00, 0x4E, 0x00,            // const-string v0, "input"
-                0x71, 0x20, 0x20, 0x00, 0x05, 0x00 // invoke-static{v5, v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+                0x1A, 0x00, 0x2C, 0x00, // const-string v0, "SHA-256"
+                0x71, 0x10, 0x1C, 0x00, 0x00, 0x00, // invoke-static{v0}, getInstance
+                0x0C, 0x00, // move-result-object v0
             )
 
             // 通过 VMP 解析器执行指令流

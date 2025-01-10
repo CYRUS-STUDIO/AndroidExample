@@ -35,11 +35,18 @@
 
 #define CONST_STRING_OPCODE 0x1A  // const-string 操作码
 #define INVOKE_STATIC_OPCODE 0x71  // invoke-static 操作码
+#define MOVE_RESULT_OBJECT_OPCODE 0x0c  // move-result-object 操作码
 
-// 定义支持的寄存器类型（比如 string、jobject、jboolean 等等）
-using RegisterValue = std::variant<std::string, jobject, jboolean , jbyte, jshort, jint, jlong, jfloat, jdouble>;
+// 定义支持的寄存器类型（比如 jstring、jboolean、jobject 等等）
+using RegisterValue = std::variant<jstring, jboolean, jbyte, jshort, jint, jlong, jfloat, jdouble, jobject>;
 
-std::unordered_map<uint8_t, RegisterValue> registers;  // 寄存器，支持多种类型
+// 定义寄存器数量
+constexpr size_t NUM_REGISTERS = 10;
+
+// 定义寄存器数组
+RegisterValue registers[NUM_REGISTERS];
+
+//std::unordered_map <uint8_t, RegisterValue> registers;  // 寄存器，支持多种类型
 
 
 jclass g_JFloatClass = nullptr;
@@ -48,9 +55,11 @@ jclass g_JDoubleClass = nullptr;
 jmethodID g_JDoubleConstructor = nullptr;
 
 // 初始化缓存类和构造函数 ID
-JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
-    JNIEnv* env = nullptr;
-    if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_6) != JNI_OK) {
+JNIEXPORT jint
+
+JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
+    JNIEnv *env = nullptr;
+    if (vm->GetEnv(reinterpret_cast<void **>(&env), JNI_VERSION_1_6) != JNI_OK) {
         return JNI_ERR;
     }
 
@@ -66,59 +75,85 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
     return JNI_VERSION_1_6;
 }
 
+
+// 存储不同类型的值到寄存器
+template <typename T>
+void setRegisterValue(uint8_t reg, T value) {
+    // 通过模板将类型 T 存储到寄存器
+    registers[reg] = value;
+}
+
+
 // 获取寄存器中的值并转换为 JNI 参数
-jobject getRegisterAsJNIParam(JNIEnv* env, uint8_t reg) {
+template<typename T>
+T getRegisterAsJNIParam(JNIEnv *env, uint8_t reg) {
+    const RegisterValue &val = registers[reg];
+
+    if (std::holds_alternative<T>(val)) {
+        return std::get<T>(val);
+    }
+
+    // 处理 std::string 类型，返回 jstring
+    if constexpr (std::is_same_v<T, jobject>) {
+        if (std::holds_alternative<jstring>(val)) {
+            return std::get<jstring>(val);
+        } else if (std::holds_alternative<jobject>(val)) {
+            return std::get<jobject>(val);
+        } else {
+            return nullptr;  // 如果没有匹配类型，返回 nullptr
+        }
+    }
+
+    // 处理 jfloat 或 jdouble 类型的情况，创建对应对象
+    if constexpr (std::is_same_v<T, jfloat>) {
+        if (std::holds_alternative<jfloat>(val)) {
+            return std::get<jfloat>(val);
+        }
+    }
+
+    if constexpr (std::is_same_v<T, jdouble>) {
+        if (std::holds_alternative<jdouble>(val)) {
+            return std::get<jdouble>(val);
+        }
+    }
+
+    // 如果没有匹配的类型，返回 nullptr
+    return T{};
+}
+
+
+// 打印寄存器的值
+void printRegisterValue(uint8_t reg) {
     const RegisterValue& val = registers[reg];
 
-    if (std::holds_alternative<std::string>(val)) {
-        // 如果是 std::string，返回 JNI 字符串
-        return env->NewStringUTF(std::get<std::string>(val).c_str());
+    if (std::holds_alternative<jstring>(val)) {
+        LOGI("Register[%d] = %s", reg, std::get<jstring>(val));
+    } else if (std::holds_alternative<jobject>(val)) {
+        LOGI("Register[%d] = jobject", reg);
+    } else if (std::holds_alternative<jint>(val)) {
+        LOGI("Register[%d] = %d", reg, std::get<jint>(val));
+    } else if (std::holds_alternative<jlong>(val)) {
+        LOGI("Register[%d] = %ld", reg, std::get<jlong>(val));
+    } else if (std::holds_alternative<jfloat>(val)) {
+        LOGI("Register[%d] = %f", reg, std::get<jfloat>(val));
+    } else if (std::holds_alternative<jdouble>(val)) {
+        LOGI("Register[%d] = %f", reg, std::get<jdouble>(val));
+    } else {
+        LOGI("Register[%d] = UNKNOWN", reg);
     }
-    else if (std::holds_alternative<jobject>(val)) {
-        // 如果是 jobject，直接返回
-        return std::get<jobject>(val);
-    }
-    else if (std::holds_alternative<jboolean>(val)) {
-        // 如果是 jboolean，直接返回
-        return reinterpret_cast<jobject>(std::get<jboolean>(val));  // 将 jboolean 转为 jobject
-    }
-    else if (std::holds_alternative<jbyte>(val)) {
-        // 如果是 jbyte，返回 jbyte 类型的值
-        return reinterpret_cast<jobject>(std::get<jbyte>(val));  // 将 jbyte 转为 jobject
-    }
-    else if (std::holds_alternative<jshort>(val)) {
-        // 如果是 jshort，返回 jshort 类型的值
-        return reinterpret_cast<jobject>(std::get<jshort>(val));  // 将 jshort 转为 jobject
-    }
-    else if (std::holds_alternative<jint>(val)) {
-        // 如果是 jint，返回 jint 类型的值
-        return reinterpret_cast<jobject>(std::get<jint>(val));  // 将 jint 转为 jobject
-    }
-    else if (std::holds_alternative<jlong>(val)) {
-        // 如果是 jlong，返回 jlong 类型的值
-        return reinterpret_cast<jobject>(std::get<jlong>(val));  // 将 jlong 转为 jobject
-    }
-    else if (std::holds_alternative<jfloat>(val)) {
-        // 如果是 jfloat，返回 jfloat 类型的值，不能转换为 jobject
-        return env->NewObject(g_JFloatClass, g_JFloatConstructor, std::get<jfloat>(val));
-    }
-    else if (std::holds_alternative<jdouble>(val)) {
-        // 如果是 jdouble，返回 jdouble 类型的值，不能转换为 jobject
-        return env->NewObject(g_JDoubleClass, g_JDoubleConstructor, std::get<jdouble>(val));
-    }
-
-    // 如果没有匹配的类型，则返回 nullptr
-    return nullptr;
 }
 
 
 // 模拟字符串常量池
 std::unordered_map <uint32_t, std::string> stringPool = {
-        {0x004E, "input"}
+        {0x004e00, "input"},
+        {0x002c00, "SHA-256"},
+        {0x024a00, "getBytes\\(...\\)"},
+        {0x034400, "encodeToString\\(...\\)"},
 };
 
 // 处理 const-string 指令
-void handleConstString(const uint8_t *bytecode, size_t &pc) {
+void handleConstString(JNIEnv *env, const uint8_t *bytecode, size_t &pc) {
     uint8_t opcode = bytecode[pc];
     if (opcode != CONST_STRING_OPCODE) {  // 检查是否为 const-string 指令
         throw std::runtime_error("Unexpected opcode");
@@ -126,20 +161,23 @@ void handleConstString(const uint8_t *bytecode, size_t &pc) {
 
     // 获取目标寄存器索引 reg 和字符串索引
     uint8_t reg = bytecode[pc + 1];  // 目标寄存器
-    uint16_t stringIndex = *(uint16_t * ) & bytecode[pc + 2];  // 字符串索引
+    // 读取字符串索引（第 2、3、4 字节）
+    uint32_t stringIndex = (bytecode[pc + 1] << 16) | (bytecode[pc + 2] << 8) | bytecode[pc + 3];
 
     // 从字符串常量池获取字符串
     const std::string &value = stringPool[stringIndex];
 
-    // 将字符串存储到目标寄存器
-    registers[reg] = value;
+    // 创建 jstring 并将其存储到目标寄存器
+    jstring jValue = env->NewStringUTF(value.c_str());
+    registers[reg] = jValue;
 
     // 更新程序计数器
     pc += 4;  // const-string 指令占用 4 字节
 }
 
+
 // 解析方法签名，返回参数个数和返回值类型
-void parseMethodSignature(const std::string& signature, size_t& paramCount, std::string& returnType) {
+void parseMethodSignature(const std::string &signature, size_t &paramCount, std::string &returnType) {
     std::regex paramRegex("\\((.*)\\)");  // 匹配括号中的参数
     std::smatch match;
 
@@ -153,8 +191,21 @@ void parseMethodSignature(const std::string& signature, size_t& paramCount, std:
     returnType = signature.substr(signature.find(')') + 1);
 }
 
+
+// move-result-object
+void handleMoveResultObject(JNIEnv *env, const uint8_t *bytecode, size_t &pc, jobject result) {
+    uint8_t opcode = bytecode[pc];
+    if (opcode == MOVE_RESULT_OBJECT_OPCODE) {
+        uint8_t reg = bytecode[pc + 1];  // 目标寄存器
+        setRegisterValue(reg, result);
+        // 更新程序计数器
+        pc += 2;  // move-result-object 指令占用 2 字节
+    }
+}
+
+
 // 解析并执行 invoke-static 指令
-void handleInvokeStatic(JNIEnv* env, const uint8_t* bytecode, size_t& pc) {
+void handleInvokeStatic(JNIEnv *env, const uint8_t *bytecode, size_t &pc) {
     uint8_t opcode = bytecode[pc];
     if (opcode != 0x71) {  // 检查是否为 invoke-static
         throw std::runtime_error("Unexpected opcode for invoke-static");
@@ -205,7 +256,8 @@ void handleInvokeStatic(JNIEnv* env, const uint8_t* bytecode, size_t& pc) {
     }
 
     // 获取方法 ID
-    jmethodID methodID = env->GetStaticMethodID(targetClass, methodName.c_str(), methodSignature.c_str());
+    jmethodID methodID = env->GetStaticMethodID(targetClass, methodName.c_str(),
+                                                methodSignature.c_str());
     if (methodID == nullptr) {
         throw std::runtime_error("Method not found: " + methodName);
     }
@@ -216,11 +268,16 @@ void handleInvokeStatic(JNIEnv* env, const uint8_t* bytecode, size_t& pc) {
     parseMethodSignature(methodSignature, paramCount, returnType);
 
     // 动态获取参数
-    std::vector<jobject> params(paramCount);
+    std::vector <jstring> params(paramCount);
     for (size_t i = 0; i < paramCount; ++i) {
         // 获取寄存器中的值并转化为 JNI 参数
-        params[i] = getRegisterAsJNIParam(env, (i == 0) ? reg1 : reg2);  // 这里只处理了 reg1 和 reg2，实际情况可能更复杂
+        jstring jStr = getRegisterAsJNIParam<jstring>(env, (i == 0) ? reg1
+                                                                    : reg2); // 这里只处理了 reg1 和 reg2，实际情况可能更复杂
+        params[i] = jStr;
     }
+
+    // 更新程序计数器
+    pc += 6;  // invoke-static 指令占用 6 字节
 
     // 调用静态方法
     // 根据返回值类型决定调用方式
@@ -230,17 +287,21 @@ void handleInvokeStatic(JNIEnv* env, const uint8_t* bytecode, size_t& pc) {
         } else {
             env->CallStaticVoidMethod(targetClass, methodID, params[0]);
         }
-    } else if (returnType == "L") {  // 对象返回值
+    } else if (returnType[0] == 'L') {  // 对象返回值
+        jobject result;
         if (paramCount > 1) {
-            jobject result = env->CallStaticObjectMethod(targetClass, methodID, params[0], params[1]);
-            registers[reg1] = result;  // 将结果存储到寄存器
+            result = env->CallStaticObjectMethod(targetClass, methodID, params[0], params[1]);
         } else {
-            jobject result = env->CallStaticObjectMethod(targetClass, methodID, params[0]);
-            registers[reg1] = result;  // 将结果存储到寄存器
+            result = env->CallStaticObjectMethod(targetClass, methodID, params[0]);
         }
+
+        // move-result-object
+        handleMoveResultObject(env, bytecode, pc, result);
+
     } else if (returnType == "Z") {  // boolean 返回值
         if (paramCount > 1) {
-            jboolean boolResult = env->CallStaticBooleanMethod(targetClass, methodID, params[0], params[1]);
+            jboolean boolResult = env->CallStaticBooleanMethod(targetClass, methodID, params[0],
+                                                               params[1]);
             registers[reg1] = boolResult;
         } else {
             jboolean boolResult = env->CallStaticBooleanMethod(targetClass, methodID, params[0]);
@@ -248,7 +309,8 @@ void handleInvokeStatic(JNIEnv* env, const uint8_t* bytecode, size_t& pc) {
         }
     } else if (returnType == "B") {  // byte 返回值
         if (paramCount > 1) {
-            jbyte byteResult = env->CallStaticByteMethod(targetClass, methodID, params[0], params[1]);
+            jbyte byteResult = env->CallStaticByteMethod(targetClass, methodID, params[0],
+                                                         params[1]);
             registers[reg1] = byteResult;
         } else {
             jbyte byteResult = env->CallStaticByteMethod(targetClass, methodID, params[0]);
@@ -256,7 +318,8 @@ void handleInvokeStatic(JNIEnv* env, const uint8_t* bytecode, size_t& pc) {
         }
     } else if (returnType == "S") {  // short 返回值
         if (paramCount > 1) {
-            jshort shortResult = env->CallStaticShortMethod(targetClass, methodID, params[0], params[1]);
+            jshort shortResult = env->CallStaticShortMethod(targetClass, methodID, params[0],
+                                                            params[1]);
             registers[reg1] = shortResult;
         } else {
             jshort shortResult = env->CallStaticShortMethod(targetClass, methodID, params[0]);
@@ -272,7 +335,8 @@ void handleInvokeStatic(JNIEnv* env, const uint8_t* bytecode, size_t& pc) {
         }
     } else if (returnType == "J") {  // long 返回值
         if (paramCount > 1) {
-            jlong longResult = env->CallStaticLongMethod(targetClass, methodID, params[0], params[1]);
+            jlong longResult = env->CallStaticLongMethod(targetClass, methodID, params[0],
+                                                         params[1]);
             registers[reg1] = longResult;
         } else {
             jlong longResult = env->CallStaticLongMethod(targetClass, methodID, params[0]);
@@ -280,7 +344,8 @@ void handleInvokeStatic(JNIEnv* env, const uint8_t* bytecode, size_t& pc) {
         }
     } else if (returnType == "F") {  // float 返回值
         if (paramCount > 1) {
-            jfloat floatResult = env->CallStaticFloatMethod(targetClass, methodID, params[0], params[1]);
+            jfloat floatResult = env->CallStaticFloatMethod(targetClass, methodID, params[0],
+                                                            params[1]);
             registers[reg1] = floatResult;
         } else {
             jfloat floatResult = env->CallStaticFloatMethod(targetClass, methodID, params[0]);
@@ -288,7 +353,8 @@ void handleInvokeStatic(JNIEnv* env, const uint8_t* bytecode, size_t& pc) {
         }
     } else if (returnType == "D") {  // double 返回值
         if (paramCount > 1) {
-            jdouble doubleResult = env->CallStaticDoubleMethod(targetClass, methodID, params[0], params[1]);
+            jdouble doubleResult = env->CallStaticDoubleMethod(targetClass, methodID, params[0],
+                                                               params[1]);
             registers[reg1] = doubleResult;
         } else {
             jdouble doubleResult = env->CallStaticDoubleMethod(targetClass, methodID, params[0]);
@@ -297,35 +363,17 @@ void handleInvokeStatic(JNIEnv* env, const uint8_t* bytecode, size_t& pc) {
     } else {
         throw std::runtime_error("Unsupported return type: " + returnType);
     }
-
-    // 异常检查
-    if (env->ExceptionCheck()) {
-        env->ExceptionDescribe();
-        env->ExceptionClear();
-        throw std::runtime_error("Error while invoking static method: " + methodName);
-    }
-
-    // 更新程序计数器
-    pc += 6;  // invoke-static 指令占用 6 字节
 }
 
 
 // Java_com_cyrus_example_vmp_SimpleVMP_execute 实现
 extern "C"
 JNIEXPORT jstring JNICALL
-Java_com_cyrus_example_vmp_SimpleVMP_execute(JNIEnv *env, jobject thiz, jbyteArray bytecodeArray, jstring input) {
-
-    // 获取 jstring 的 UTF-8 字符数组
-    const char* cstr = env->GetStringUTFChars(input, nullptr);
-
-    // 将 char* 转换为 std::string
-    std::string input_str(cstr);
-
-    // 释放获取的字符数组
-    env->ReleaseStringUTFChars(input, cstr);
+Java_com_cyrus_example_vmp_SimpleVMP_execute(JNIEnv *env, jobject thiz, jbyteArray bytecodeArray,
+                                             jstring input) {
 
     // 传参存到 v5 寄存器
-    registers[5] = input_str;
+    registers[5] = input;
 
     // 获取字节码数组的长度
     jsize length = env->GetArrayLength(bytecodeArray);
@@ -340,7 +388,7 @@ Java_com_cyrus_example_vmp_SimpleVMP_execute(JNIEnv *env, jobject thiz, jbyteArr
 
             switch (opcode) {
                 case CONST_STRING_OPCODE:
-                    handleConstString(bytecode.data(), pc);
+                    handleConstString(env, bytecode.data(), pc);
                     break;
                 case INVOKE_STATIC_OPCODE:
                     handleInvokeStatic(env, bytecode.data(), pc);
@@ -350,9 +398,11 @@ Java_com_cyrus_example_vmp_SimpleVMP_execute(JNIEnv *env, jobject thiz, jbyteArr
             }
         }
 
-        return env->NewStringUTF(std::get<std::string>(registers[0]).c_str());  // 返回寄存器 v0 的值
+        if (std::holds_alternative<jstring>(registers[0])) {
+            return std::get<jstring>(registers[0]);   // 返回寄存器 v0 的值
+        }
     } catch (const std::exception &e) {
         env->ThrowNew(env->FindClass("java/lang/RuntimeException"), e.what());
-        return nullptr;
     }
+    return nullptr;
 }
