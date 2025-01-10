@@ -66,7 +66,7 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
     return JNI_VERSION_1_6;
 }
 
-
+// 获取寄存器中的值并转换为 JNI 参数
 jobject getRegisterAsJNIParam(JNIEnv* env, uint8_t reg) {
     const RegisterValue& val = registers[reg];
 
