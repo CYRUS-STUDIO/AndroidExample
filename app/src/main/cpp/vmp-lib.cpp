@@ -36,6 +36,7 @@
 #define CONST_STRING_OPCODE 0x1A  // const-string 操作码
 #define INVOKE_STATIC_OPCODE 0x71  // invoke-static 操作码
 #define MOVE_RESULT_OBJECT_OPCODE 0x0c  // move-result-object 操作码
+#define SGET_OBJECT_OPCODE 0x62  // sget-object 操作码
 
 // 定义支持的寄存器类型（比如 jstring、jboolean、jobject 等等）
 using RegisterValue = std::variant<jstring, jboolean, jbyte, jshort, jint, jlong, jfloat, jdouble, jobject>;
@@ -201,6 +202,56 @@ void handleMoveResultObject(JNIEnv *env, const uint8_t *bytecode, size_t &pc, jo
         // 更新程序计数器
         pc += 2;  // move-result-object 指令占用 2 字节
     }
+}
+
+// 解析和执行 sget-object 指令
+void handleSgetObject(JNIEnv *env, const uint8_t *bytecode, size_t &pc) {
+    // 解析指令
+    uint8_t reg = bytecode[pc + 1];          // 目标寄存器
+    uint16_t fieldIndex = (bytecode[pc + 2] << 8) | bytecode[pc + 3]; // 字段索引
+
+    // 类名和方法信息
+    std::string className;
+    std::string fieldName;
+    std::string fieldType;
+
+    // 解析每条指令，依据方法的不同来设置类名、方法名、签名
+    switch (fieldIndex) {
+        case 0x0900:  // Lkotlin/text/Charsets;->UTF_8:Ljava/nio/charset/Charset;
+            className = "kotlin/text/Charsets";
+            fieldName = "UTF_8";
+            fieldType = "Ljava/nio/charset/Charset;"; // 字段类型为 Charset
+            break;
+        default:
+            throw std::runtime_error("Unknown field index");
+    }
+
+    // 1. 获取 Java 类
+    jclass clazz = env->FindClass(className.c_str());
+    if (clazz == nullptr) {
+        LOGI("Failed to find class %s", className.c_str());
+        return;
+    }
+
+    // 2. 获取静态字段的 Field ID
+    jfieldID fieldID = env->GetStaticFieldID(clazz, fieldName.c_str(), fieldType.c_str());
+    if (fieldID == nullptr) {
+        LOGI("Failed to get field ID for %s", fieldName.c_str());
+        return;
+    }
+
+    // 3. 获取静态字段的值
+    jobject field = env->GetStaticObjectField(clazz, fieldID);
+    if (field == nullptr) {
+        LOGI("%s field is null", fieldName.c_str());
+        return;
+    }
+
+    // 保存到目标寄存器
+    setRegisterValue(reg, field);
+
+    // 更新程序计数器
+    pc += 4; // sget-object 指令占用 4 字节
 }
 
 
@@ -392,6 +443,9 @@ Java_com_cyrus_example_vmp_SimpleVMP_execute(JNIEnv *env, jobject thiz, jbyteArr
                     break;
                 case INVOKE_STATIC_OPCODE:
                     handleInvokeStatic(env, bytecode.data(), pc);
+                    break;
+                case SGET_OBJECT_OPCODE:
+                    handleSgetObject(env, bytecode.data(), pc);
                     break;
                 default:
                     throw std::runtime_error("Unknown opcode encountered");
