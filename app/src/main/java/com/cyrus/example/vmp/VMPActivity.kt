@@ -94,6 +94,22 @@ class VMPActivity : AppCompatActivity() {
             Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
         }
 
+        // invoke-virtual 指令
+        findViewById<Button>(R.id.button_invoke_virtual).setOnClickListener {
+
+            // 模拟字节码输入
+            val bytecode = byteArrayOf(
+                0x62, 0x01, 0x09, 0x00, // sget-object v1, UTF_8
+                0x6E, 0x20, 0x16, 0x00, 0x15, 0x00, // invoke-virtual{v5, v1}, getBytes
+                0x0C, 0x01, // move-result-object v1
+            )
+
+            // 通过 VMP 解析器执行指令流
+            val result = SimpleVMP.execute(bytecode, input)
+
+            // 显示 Toast
+            Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
+        }
 
     }
 
