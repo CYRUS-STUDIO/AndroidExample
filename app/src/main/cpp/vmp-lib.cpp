@@ -39,9 +39,29 @@
 #define MOVE_RESULT_OBJECT_OPCODE 0x0c  // move-result-object 操作码
 #define SGET_OBJECT_OPCODE 0x62  // sget-object 操作码
 #define INVOKE_VIRTUAL_OPCODE 0x6e  // invoke-virtual 操作码
+#define RETURN_OBJECT_OPCODE 0x11  // return-object 操作码
 
 // 定义支持的寄存器类型（比如 jstring、jboolean、jobject 等等）
-using RegisterValue = std::variant<jstring, jboolean, jbyte, jshort, jint, jlong, jfloat, jdouble, jobject>;
+using RegisterValue = std::variant<
+        jstring,
+        jboolean,
+        jbyte,
+        jshort,
+        jint,
+        jlong,
+        jfloat,
+        jdouble,
+        jobject,
+        jbyteArray,
+        jintArray,
+        jlongArray,
+        jfloatArray,
+        jdoubleArray,
+        jbooleanArray,
+        jshortArray,
+        jobjectArray,
+        std::nullptr_t
+>;
 
 // 定义寄存器数量
 constexpr size_t NUM_REGISTERS = 10;
@@ -110,15 +130,75 @@ jvalue getRegisterAsJValue(int regIdx, const std::string &paramType) {
             throw std::runtime_error("Type mismatch: Expected jstring.");
         }
     } else if (paramType[0] == 'L') {  // jobject 类型（以 L 开头）
-        if (std::holds_alternative<jobject>(val)) {
+        if (std::holds_alternative<jstring>(val)) {
+            result.l = std::get<jstring>(val);
+        } else if (std::holds_alternative<jobject>(val)) {
             result.l = std::get<jobject>(val);
         } else {
             throw std::runtime_error("Type mismatch: Expected jobject.");
         }
+    } else if (paramType[0] == '[') {  // 数组类型
+        // 处理数组类型，判断是基础类型数组还是对象数组
+        if (paramType == "[I") {  // jintArray 类型
+            if (std::holds_alternative<jintArray>(val)) {
+                result.l = std::get<jintArray>(val);  // jvalue 直接存储数组
+            } else {
+                throw std::runtime_error("Type mismatch: Expected jintArray.");
+            }
+        } else if (paramType == "[J") {  // jlongArray 类型
+            if (std::holds_alternative<jlongArray>(val)) {
+                result.l = std::get<jlongArray>(val);
+            } else {
+                throw std::runtime_error("Type mismatch: Expected jlongArray.");
+            }
+        } else if (paramType == "[F") {  // jfloatArray 类型
+            if (std::holds_alternative<jfloatArray>(val)) {
+                result.l = std::get<jfloatArray>(val);
+            } else {
+                throw std::runtime_error("Type mismatch: Expected jfloatArray.");
+            }
+        } else if (paramType == "[D") {  // jdoubleArray 类型
+            if (std::holds_alternative<jdoubleArray>(val)) {
+                result.l = std::get<jdoubleArray>(val);
+            } else {
+                throw std::runtime_error("Type mismatch: Expected jdoubleArray.");
+            }
+        } else if (paramType == "[Z") {  // jbooleanArray 类型
+            if (std::holds_alternative<jbooleanArray>(val)) {
+                result.l = std::get<jbooleanArray>(val);
+            } else {
+                throw std::runtime_error("Type mismatch: Expected jbooleanArray.");
+            }
+        } else if (paramType == "[B") {  // jbyteArray 类型
+            if (std::holds_alternative<jbyteArray>(val)) {
+                result.l = std::get<jbyteArray>(val);
+            } else {
+                throw std::runtime_error("Type mismatch: Expected jbyteArray.");
+            }
+        } else if (paramType == "[S") {  // jshortArray 类型
+            if (std::holds_alternative<jshortArray>(val)) {
+                result.l = std::get<jshortArray>(val);
+            } else {
+                throw std::runtime_error("Type mismatch: Expected jshortArray.");
+            }
+        } else if (paramType == "[Ljava/lang/String;") {  // String[] 类型
+            if (std::holds_alternative<jobjectArray>(val)) {
+                result.l = std::get<jobjectArray>(val);
+            } else {
+                throw std::runtime_error("Type mismatch: Expected String array.");
+            }
+        } else if (paramType[0] == '[' && paramType[1] == 'L') {  // jobject[] 类型（数组的元素为对象）
+            if (std::holds_alternative<jobjectArray>(val)) {
+                result.l = std::get<jobjectArray>(val);
+            } else {
+                throw std::runtime_error("Type mismatch: Expected jobject array.");
+            }
+        } else {
+            throw std::runtime_error("Unsupported array type.");
+        }
     } else {
         throw std::runtime_error("Unsupported parameter type.");
     }
-
     return result;
 }
 
@@ -169,16 +249,26 @@ void parseMethodSignature(const std::string &signature, std::vector<std::string>
         // 解析参数类型
         size_t startPos = 0;
         while (startPos < params.size()) {
-            if (params[startPos] == 'L') {
-                // 解析类类型（以L开头，类似 Ljava/lang/String;）
-                size_t endPos = params.find(';', startPos);
-                paramTypes.push_back(params.substr(startPos, endPos - startPos + 1));  // 包括L和;
-                startPos = endPos + 1;
-            } else {
-                // 解析基础类型（如 I, J, F等）
-                paramTypes.push_back(std::string(1, params[startPos]));
+            std::string type;
+
+            // 处理数组类型
+            while (params[startPos] == '[') {
+                type += '[';
                 startPos++;
             }
+
+            // 处理类类型（以L开头，类似 Ljava/lang/String;）
+            if (params[startPos] == 'L') {
+                size_t endPos = params.find(';', startPos);
+                type += params.substr(startPos, endPos - startPos + 1);  // 包括L和;
+                startPos = endPos + 1;
+            } else {
+                // 处理基础类型（如 I, J, F等）
+                type += params[startPos];
+                startPos++;
+            }
+
+            paramTypes.push_back(type);
         }
     }
 
@@ -332,84 +422,116 @@ void handleInvokeStatic(JNIEnv *env, const uint8_t *bytecode, size_t &pc) {
     // 调用静态方法
     // 根据返回值类型决定调用方式
     if (returnType == "V") {  // void 返回值
-        if (paramCount > 1) {
-            env->CallStaticVoidMethod(targetClass, methodID, params[0], params[1]);
-        } else {
+        if (paramCount == 0) {
+            env->CallStaticVoidMethod(targetClass, methodID);  // 无参数
+        } else if (paramCount == 1) {
             env->CallStaticVoidMethod(targetClass, methodID, params[0]);
-        }
-    } else if (returnType[0] == 'L') {  // 对象返回值
-        jobject result;
-        if (paramCount > 1) {
-            result = env->CallStaticObjectMethod(targetClass, methodID, params[0], params[1]);
         } else {
-            result = env->CallStaticObjectMethod(targetClass, methodID, params[0]);
+            env->CallStaticVoidMethod(targetClass, methodID, params[0], params[1]);
+        }
+    } else if (returnType == "Z") {  // boolean 返回值
+        jboolean boolResult;
+        if (paramCount == 0) {
+            boolResult = env->CallStaticBooleanMethod(targetClass, methodID);  // 无参数
+        } else if (paramCount == 1) {
+            boolResult = env->CallStaticBooleanMethod(targetClass, methodID, params[0]);
+        } else {
+            boolResult = env->CallStaticBooleanMethod(targetClass, methodID, params[0], params[1]);
+        }
+
+        // move-result
+        handleMoveResultObject(env, bytecode, pc, boolResult);
+
+    } else if (returnType == "B") {  // byte 返回值
+        jbyte byteResult;
+        if (paramCount == 0) {
+            byteResult = env->CallStaticByteMethod(targetClass, methodID);  // 无参数
+        } else if (paramCount == 1) {
+            byteResult = env->CallStaticByteMethod(targetClass, methodID, params[0]);
+        } else {
+            byteResult = env->CallStaticByteMethod(targetClass, methodID, params[0], params[1]);
+        }
+
+        // move-result
+        handleMoveResultObject(env, bytecode, pc, byteResult);
+
+    } else if (returnType == "S") {  // short 返回值
+        jshort shortResult;
+        if (paramCount == 0) {
+            shortResult = env->CallStaticShortMethod(targetClass, methodID);  // 无参数
+        } else if (paramCount == 1) {
+            shortResult = env->CallStaticShortMethod(targetClass, methodID, params[0]);
+        } else {
+            shortResult = env->CallStaticShortMethod(targetClass, methodID, params[0], params[1]);
+        }
+
+        // move-result
+        handleMoveResultObject(env, bytecode, pc, shortResult);
+
+    } else if (returnType == "I") {  // int 返回值
+        jint intResult;
+        if (paramCount == 0) {
+            intResult = env->CallStaticIntMethod(targetClass, methodID);  // 无参数
+        } else if (paramCount == 1) {
+            intResult = env->CallStaticIntMethod(targetClass, methodID, params[0]);
+        } else {
+            intResult = env->CallStaticIntMethod(targetClass, methodID, params[0], params[1]);
+        }
+
+        // move-result
+        handleMoveResultObject(env, bytecode, pc, intResult);
+
+    } else if (returnType == "J") {  // long 返回值
+        jlong longResult;
+        if (paramCount == 0) {
+            longResult = env->CallStaticLongMethod(targetClass, methodID);  // 无参数
+        } else if (paramCount == 1) {
+            longResult = env->CallStaticLongMethod(targetClass, methodID, params[0]);
+        } else {
+            longResult = env->CallStaticLongMethod(targetClass, methodID, params[0], params[1]);
+        }
+
+        // move-result
+        handleMoveResultObject(env, bytecode, pc, longResult);
+
+    } else if (returnType == "F") {  // float 返回值
+        jfloat floatResult;
+        if (paramCount == 0) {
+            floatResult = env->CallStaticFloatMethod(targetClass, methodID);  // 无参数
+        } else if (paramCount == 1) {
+            floatResult = env->CallStaticFloatMethod(targetClass, methodID, params[0]);
+        } else {
+            floatResult = env->CallStaticFloatMethod(targetClass, methodID, params[0], params[1]);
+        }
+
+        // move-result
+        handleMoveResultObject(env, bytecode, pc, floatResult);
+
+    } else if (returnType == "D") {  // double 返回值
+        jdouble doubleResult;
+        if (paramCount == 0) {
+            doubleResult = env->CallStaticDoubleMethod(targetClass, methodID);  // 无参数
+        } else if (paramCount == 1) {
+            doubleResult = env->CallStaticDoubleMethod(targetClass, methodID, params[0]);
+        } else {
+            doubleResult = env->CallStaticDoubleMethod(targetClass, methodID, params[0], params[1]);
+        }
+
+        // move-result
+        handleMoveResultObject(env, bytecode, pc, doubleResult);
+
+    } else if (returnType[0] == 'L') {  // 对象返回值
+        jobject objResult;
+        if (paramCount == 0) {
+            objResult = env->CallStaticObjectMethod(targetClass, methodID);  // 无参数
+        } else if (paramCount == 1) {
+            objResult = env->CallStaticObjectMethod(targetClass, methodID, params[0]);
+        } else {
+            objResult = env->CallStaticObjectMethod(targetClass, methodID, params[0], params[1]);
         }
 
         // move-result-object
-        handleMoveResultObject(env, bytecode, pc, result);
-
-    } else if (returnType == "Z") {  // boolean 返回值
-        if (paramCount > 1) {
-            jboolean boolResult = env->CallStaticBooleanMethod(targetClass, methodID, params[0],
-                                                               params[1]);
-            registers[reg1] = boolResult;
-        } else {
-            jboolean boolResult = env->CallStaticBooleanMethod(targetClass, methodID, params[0]);
-            registers[reg1] = boolResult;
-        }
-    } else if (returnType == "B") {  // byte 返回值
-        if (paramCount > 1) {
-            jbyte byteResult = env->CallStaticByteMethod(targetClass, methodID, params[0],
-                                                         params[1]);
-            registers[reg1] = byteResult;
-        } else {
-            jbyte byteResult = env->CallStaticByteMethod(targetClass, methodID, params[0]);
-            registers[reg1] = byteResult;
-        }
-    } else if (returnType == "S") {  // short 返回值
-        if (paramCount > 1) {
-            jshort shortResult = env->CallStaticShortMethod(targetClass, methodID, params[0],
-                                                            params[1]);
-            registers[reg1] = shortResult;
-        } else {
-            jshort shortResult = env->CallStaticShortMethod(targetClass, methodID, params[0]);
-            registers[reg1] = shortResult;
-        }
-    } else if (returnType == "I") {  // int 返回值
-        if (paramCount > 1) {
-            jint intResult = env->CallStaticIntMethod(targetClass, methodID, params[0], params[1]);
-            registers[reg1] = intResult;
-        } else {
-            jint intResult = env->CallStaticIntMethod(targetClass, methodID, params[0]);
-            registers[reg1] = intResult;
-        }
-    } else if (returnType == "J") {  // long 返回值
-        if (paramCount > 1) {
-            jlong longResult = env->CallStaticLongMethod(targetClass, methodID, params[0],
-                                                         params[1]);
-            registers[reg1] = longResult;
-        } else {
-            jlong longResult = env->CallStaticLongMethod(targetClass, methodID, params[0]);
-            registers[reg1] = longResult;
-        }
-    } else if (returnType == "F") {  // float 返回值
-        if (paramCount > 1) {
-            jfloat floatResult = env->CallStaticFloatMethod(targetClass, methodID, params[0],
-                                                            params[1]);
-            registers[reg1] = floatResult;
-        } else {
-            jfloat floatResult = env->CallStaticFloatMethod(targetClass, methodID, params[0]);
-            registers[reg1] = floatResult;
-        }
-    } else if (returnType == "D") {  // double 返回值
-        if (paramCount > 1) {
-            jdouble doubleResult = env->CallStaticDoubleMethod(targetClass, methodID, params[0],
-                                                               params[1]);
-            registers[reg1] = doubleResult;
-        } else {
-            jdouble doubleResult = env->CallStaticDoubleMethod(targetClass, methodID, params[0]);
-            registers[reg1] = doubleResult;
-        }
+        handleMoveResultObject(env, bytecode, pc, objResult);
     } else {
         throw std::runtime_error("Unsupported return type: " + returnType);
     }
@@ -496,44 +618,53 @@ void handleInvokeVirtual(JNIEnv* env, const uint8_t* bytecode, size_t& pc) {
     pc += 6;
 
     // 检查返回值的类型，并调用适当的方法
-    if (methodSignature.back() == ')') {  // 如果没有返回值 (void 方法)
+    if (returnType == "V") {  // 如果没有返回值 (void 方法)
         // 调用 void 方法
         env->CallVoidMethodA(targetObject, methodID, params.data());
-    } else if (methodSignature.back() == 'B') {  // 如果返回值是 byte 数组
+    } else if (returnType == "[B") {  // 如果返回值是 byte 数组
         jbyteArray result = (jbyteArray) env->CallObjectMethodA(targetObject, methodID, params.data());
         // 处理返回的 byte 数组
         if (result) {
-            // 可以处理返回的 byte 数组
             handleMoveResultObject(env, bytecode, pc, result);
         }
-    } else if (methodSignature.back() == 'L') {  // 如果返回值是对象
+    } else if (returnType[0] == 'L') {  // 如果返回值是对象
         jobject result = env->CallObjectMethodA(targetObject, methodID, params.data());
         // 处理返回的对象
         if (result) {
-            // 可以处理返回的对象
             handleMoveResultObject(env, bytecode, pc, result);
         }
-    } else if (methodSignature.back() == 'I') {  // 如果返回值是 int
+    } else if (returnType == "I") {  // 如果返回值是 int
         jint result = env->CallIntMethodA(targetObject, methodID, params.data());
         // 处理返回的 int
         handleMoveResultObject(env, bytecode, pc, result);
-    } else if (methodSignature.back() == 'Z') {  // 如果返回值是 boolean
+    } else if (returnType == "Z") {  // 如果返回值是 boolean
         jboolean result = env->CallBooleanMethodA(targetObject, methodID, params.data());
         // 处理返回的 boolean
         handleMoveResultObject(env, bytecode, pc, result);
-    } else if (methodSignature.back() == 'D') {  // 如果返回值是 double
+    } else if (returnType == "D") {  // 如果返回值是 double
         jdouble result = env->CallDoubleMethodA(targetObject, methodID, params.data());
         // 处理返回的 double
         handleMoveResultObject(env, bytecode, pc, result);
-    } else if (methodSignature.back() == 'F') {  // 如果返回值是 float
+    } else if (returnType == "F") {  // 如果返回值是 float
         jfloat result = env->CallFloatMethodA(targetObject, methodID, params.data());
         // 处理返回的 float
         handleMoveResultObject(env, bytecode, pc, result);
     } else {
-        throw std::runtime_error("Unsupported return type in method: " + methodSignature);
+        throw std::runtime_error("Unsupported return type in method: " + returnType);
     }
 }
 
+// return-object
+void handleReturnResultObject(JNIEnv *env, const uint8_t *bytecode, size_t &pc) {
+    uint8_t opcode = bytecode[pc];
+    if (opcode == RETURN_OBJECT_OPCODE) {
+        uint8_t reg = bytecode[pc + 1];  // 目标寄存器
+        // 把目标寄存器中的值设置到 v0 寄存器
+        setRegisterValue(0, registers[reg]);
+        // 更新程序计数器
+        pc += 2;
+    }
+}
 
 // Java_com_cyrus_example_vmp_SimpleVMP_execute 实现
 extern "C"
@@ -568,13 +699,19 @@ Java_com_cyrus_example_vmp_SimpleVMP_execute(JNIEnv *env, jobject thiz, jbyteArr
                 case INVOKE_VIRTUAL_OPCODE:
                     handleInvokeVirtual(env, bytecode.data(), pc);
                     break;
+                case RETURN_OBJECT_OPCODE:
+                    handleReturnResultObject(env, bytecode.data(), pc);
+                    break;
                 default:
                     throw std::runtime_error("Unknown opcode encountered");
             }
         }
 
         if (std::holds_alternative<jstring>(registers[0])) {
-            return std::get<jstring>(registers[0]);   // 返回寄存器 v0 的值
+            jstring result = std::get<jstring>(registers[0]);   // 返回寄存器 v0 的值
+            // 清空寄存器
+            std::fill(std::begin(registers), std::end(registers), nullptr);
+            return result;
         }
     } catch (const std::exception &e) {
         env->ThrowNew(env->FindClass("java/lang/RuntimeException"), e.what());

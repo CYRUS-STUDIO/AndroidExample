@@ -111,6 +111,21 @@ class VMPActivity : AppCompatActivity() {
             Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
         }
 
+        // return-object 指令
+        findViewById<Button>(R.id.button_return_object).setOnClickListener {
+
+            // 模拟字节码输入
+            val bytecode = byteArrayOf(
+                0x11, 0x05  // return-object v5
+            )
+
+            // 通过 VMP 解析器执行指令流
+            val result = SimpleVMP.execute(bytecode, input)
+
+            // 显示 Toast
+            Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
+        }
+
     }
 
 }
