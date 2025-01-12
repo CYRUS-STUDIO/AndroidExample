@@ -409,10 +409,11 @@ void handleInvokeStatic(JNIEnv *env, const uint8_t *bytecode, size_t &pc) {
     int paramCount = paramTypes.size();
 
     // 动态获取参数
+    uint8_t reg_list[] = {reg1, reg2};
     std::vector <jstring> params(paramCount);
     for (size_t i = 0; i < paramCount; ++i) {
         // 获取寄存器中的值并转化为 JNI 参数
-        jvalue value = getRegisterAsJValue(i, paramTypes[i]);
+        jvalue value = getRegisterAsJValue(reg_list[i], paramTypes[i]);
         params[i] = static_cast<jstring>(value.l);
     }
 
@@ -530,8 +531,15 @@ void handleInvokeStatic(JNIEnv *env, const uint8_t *bytecode, size_t &pc) {
             objResult = env->CallStaticObjectMethod(targetClass, methodID, params[0], params[1]);
         }
 
-        // move-result-object
-        handleMoveResultObject(env, bytecode, pc, objResult);
+        // 处理返回的对象
+        if (objResult) {
+            if(returnType == "Ljava/lang/String;"){
+                jstring strResult = static_cast<jstring>(objResult);
+                handleMoveResultObject(env, bytecode, pc, strResult);
+            }else{
+                handleMoveResultObject(env, bytecode, pc, objResult);
+            }
+        }
     } else {
         throw std::runtime_error("Unsupported return type: " + returnType);
     }
@@ -628,10 +636,15 @@ void handleInvokeVirtual(JNIEnv* env, const uint8_t* bytecode, size_t& pc) {
             handleMoveResultObject(env, bytecode, pc, result);
         }
     } else if (returnType[0] == 'L') {  // 如果返回值是对象
-        jobject result = env->CallObjectMethodA(targetObject, methodID, params.data());
+        jobject objResult = env->CallObjectMethodA(targetObject, methodID, params.data());
         // 处理返回的对象
-        if (result) {
-            handleMoveResultObject(env, bytecode, pc, result);
+        if (objResult) {
+            if(returnType == "Ljava/lang/String;"){
+                jstring strResult = static_cast<jstring>(objResult);
+                handleMoveResultObject(env, bytecode, pc, strResult);
+            }else{
+                handleMoveResultObject(env, bytecode, pc, objResult);
+            }
         }
     } else if (returnType == "I") {  // 如果返回值是 int
         jint result = env->CallIntMethodA(targetObject, methodID, params.data());
@@ -716,5 +729,8 @@ Java_com_cyrus_example_vmp_SimpleVMP_execute(JNIEnv *env, jobject thiz, jbyteArr
     } catch (const std::exception &e) {
         env->ThrowNew(env->FindClass("java/lang/RuntimeException"), e.what());
     }
+
+    // 清空寄存器
+    std::fill(std::begin(registers), std::end(registers), nullptr);
     return nullptr;
 }
