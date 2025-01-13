@@ -32,6 +32,13 @@
             android:text="Sign算法（VMP）" />
 
         <Button
+            android:id="@+id/button_sign_vmp_encrypted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Sign算法（指令流加密 VMP）" />
+
+        <Button
             android:id="@+id/button_const_string"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

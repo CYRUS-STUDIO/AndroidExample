@@ -50,6 +50,21 @@ class VMPActivity : AppCompatActivity() {
             Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
         }
 
+        // Sign算法（指令流加密 VMP）
+        findViewById<Button>(R.id.button_sign_vmp_encrypted).setOnClickListener {
+            // 解密并执行指令流
+            val bytecode = readInstructionFromAssets()
+
+            // 通过 VMP 解析器执行指令流
+            if (bytecode != null) {
+
+                val result = SimpleVMP.execute(bytecode, input)
+
+                // 显示 Toast
+                Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
+            }
+        }
+
         // const-string 指令
         findViewById<Button>(R.id.button_const_string).setOnClickListener {
             // 模拟字节码输入
@@ -126,6 +141,16 @@ class VMPActivity : AppCompatActivity() {
             Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
         }
 
+    }
+
+    private fun readInstructionFromAssets(): ByteArray? {
+        // 文件名：在 assets 中放置的加密文件和密钥文件
+        val vmpFileName = "sign.vmp"
+        val keyFileName = "sign.key"
+
+        // 解密文件
+        val decryptedData = AESUtils.decryptFileFromAssets(this, vmpFileName, keyFileName)
+        return decryptedData
     }
 
 }
