@@ -229,8 +229,8 @@ void handleConstString(JNIEnv *env, const uint8_t *bytecode, size_t &pc) {
     const std::string &value = stringPool[stringIndex];
 
     // 创建 jstring 并将其存储到目标寄存器
-    jstring jValue = env->NewStringUTF(value.c_str());
-    registers[reg] = jValue;
+    jstring str = env->NewStringUTF(value.c_str());
+    registers[reg] = str;
 
     // 更新程序计数器
     pc += 4;  // const-string 指令占用 4 字节
@@ -546,7 +546,7 @@ void handleInvokeStatic(JNIEnv *env, const uint8_t *bytecode, size_t &pc) {
 }
 
 
-// invoke-virtual 指令解析器
+// invoke-virtual 指令
 void handleInvokeVirtual(JNIEnv* env, const uint8_t* bytecode, size_t& pc) {
     // 解析指令
     uint8_t opcode = bytecode[pc];  // 获取操作码
