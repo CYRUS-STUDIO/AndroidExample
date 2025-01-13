@@ -680,10 +680,7 @@ void handleReturnResultObject(JNIEnv *env, const uint8_t *bytecode, size_t &pc) 
 }
 
 // Java_com_cyrus_example_vmp_SimpleVMP_execute 实现
-extern "C"
-JNIEXPORT jstring JNICALL
-Java_com_cyrus_example_vmp_SimpleVMP_execute(JNIEnv *env, jobject thiz, jbyteArray bytecodeArray,
-                                             jstring input) {
+jstring execute(JNIEnv *env, jobject thiz, jbyteArray bytecodeArray, jstring input) {
 
     // 传参存到 v5 寄存器
     registers[5] = input;
@@ -733,4 +730,32 @@ Java_com_cyrus_example_vmp_SimpleVMP_execute(JNIEnv *env, jobject thiz, jbyteArr
     // 清空寄存器
     std::fill(std::begin(registers), std::end(registers), nullptr);
     return nullptr;
+}
+
+// 定义方法签名
+static JNINativeMethod gMethods[] = {
+        {"execute", "([BLjava/lang/String;)Ljava/lang/String;", (void*)execute}
+};
+
+// JNI_OnLoad 动态注册方法
+extern "C" JNIEXPORT jint JNICALL
+JNI_OnLoad(JavaVM *vm, void *reserved) {
+    JNIEnv *env = nullptr;
+
+    if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_6) != JNI_OK) {
+        return JNI_ERR;
+    }
+
+    jclass clazz = env->FindClass("com/cyrus/example/vmp/SimpleVMP");
+    if (clazz == nullptr) {
+        return JNI_ERR; // 类未找到
+    }
+
+    // 注册所有本地方法
+    jint result = env->RegisterNatives(clazz, gMethods, sizeof(gMethods) / sizeof(gMethods[0]));
+    if (result != JNI_OK) {
+        return JNI_ERR; // 注册失败
+    }
+
+    return JNI_VERSION_1_6;
 }
