@@ -7,3 +7,5 @@
 - [Android 下内联汇编，Android Studio 汇编开发](https://cyrus-studio.github.io/blog/posts/android-%E4%B8%8B%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96android-studio-%E6%B1%87%E7%BC%96%E5%BC%80%E5%8F%91/)
 - [Android下的系统调用 (syscall)，内联汇编syscall](https://cyrus-studio.github.io/blog/posts/android%E4%B8%8B%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8-syscall%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96syscall/)
 - [移植 OLLVM 到 Android NDK，Android Studio 中使用 OLLVM](https://cyrus-studio.github.io/blog/posts/%E7%A7%BB%E6%A4%8D-ollvm-%E5%88%B0-android-ndkandroid-studio-%E4%B8%AD%E4%BD%BF%E7%94%A8-ollvm/)
+- [详解如何自定义 Android Dex VMP 保护壳](https://cyrus-studio.github.io/blog/posts/%E8%AF%A6%E8%A7%A3%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89-android-dex-vmp-%E4%BF%9D%E6%8A%A4%E5%A3%B3/)
+- [Android Dex VMP 动态加载加密指令流](https://cyrus-studio.github.io/blog/posts/android-dex-vmp-%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%8A%A0%E5%AF%86%E6%8C%87%E4%BB%A4%E6%B5%81-/)
