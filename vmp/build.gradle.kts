@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.cyrus.library"
+    namespace = "com.cyrus.vmp"
     compileSdk = 34
 
     defaultConfig {
