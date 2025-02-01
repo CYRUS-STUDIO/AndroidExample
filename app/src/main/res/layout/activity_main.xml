@@ -65,6 +65,13 @@
             android:layout_marginTop="12dp"
             android:text="VMP" />
 
+        <Button
+            android:id="@+id/button_frida_disassemble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Frida 反汇编" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

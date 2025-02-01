@@ -142,3 +142,18 @@ add_library( # 设置库的名称
 target_link_libraries( # 将 log 库链接到目标库
         vmp-lib
         ${log-lib})
+
+## Frida 反汇编 ##########################################################################################
+
+add_library( # 设置库的名称
+        frida_disassemble
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        frida_disassemble.cpp)
+
+target_link_libraries( # 将 log 库链接到目标库
+        frida_disassemble
+        ${log-lib})
