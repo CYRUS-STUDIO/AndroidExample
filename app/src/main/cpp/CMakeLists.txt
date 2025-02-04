@@ -157,3 +157,19 @@ add_library( # 设置库的名称
 target_link_libraries( # 将 log 库链接到目标库
         frida_disassemble
         ${log-lib})
+
+
+## Unicorn ##########################################################################################
+
+add_library( # 设置库的名称
+        unicorn
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        unicorn.cpp)
+
+target_link_libraries( # 将 log 库链接到目标库
+        unicorn
+        ${log-lib})

@@ -72,6 +72,13 @@
             android:layout_marginTop="12dp"
             android:text="Frida 反汇编" />
 
+        <Button
+            android:id="@+id/button_unicorn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Unicorn" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

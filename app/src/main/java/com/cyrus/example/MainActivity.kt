@@ -10,6 +10,7 @@ import com.cyrus.example.antidebug.AntiDebug
 import com.cyrus.example.antidebug.AntiDebugActivity
 import com.cyrus.example.assembly.AssemblyActivity
 import com.cyrus.example.frida.disassemble.FridaDisassembleActivity
+import com.cyrus.example.unicorn.UnicornActivity
 import com.cyrus.example.jniexample.JNIExampleActivity
 import com.cyrus.example.ollvm.OLLVMActivity
 import com.cyrus.example.syscall.SyscallActivity
@@ -92,6 +93,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 FridaDisassembleActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // Unicorn
+        findViewById<Button>(R.id.button_unicorn).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                UnicornActivity::class.java
             )
             startActivity(intent)
         }
