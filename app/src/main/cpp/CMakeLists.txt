@@ -173,3 +173,18 @@ add_library( # 设置库的名称
 target_link_libraries( # 将 log 库链接到目标库
         unicorn
         ${log-lib})
+
+## Unidbg ##########################################################################################
+
+add_library( # 设置库的名称
+        unidbg
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        unidbg.cpp)
+
+target_link_libraries( # 将 log 库链接到目标库
+        unidbg
+        ${log-lib})

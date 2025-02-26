@@ -11,6 +11,7 @@ import com.cyrus.example.antidebug.AntiDebugActivity
 import com.cyrus.example.assembly.AssemblyActivity
 import com.cyrus.example.frida.disassemble.FridaDisassembleActivity
 import com.cyrus.example.unicorn.UnicornActivity
+import com.cyrus.example.unidbg.UnidbgActivity
 import com.cyrus.example.jniexample.JNIExampleActivity
 import com.cyrus.example.ollvm.OLLVMActivity
 import com.cyrus.example.syscall.SyscallActivity
@@ -102,6 +103,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 UnicornActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // Unidbg
+        findViewById<Button>(R.id.button_unidbg).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                UnidbgActivity::class.java
             )
             startActivity(intent)
         }
