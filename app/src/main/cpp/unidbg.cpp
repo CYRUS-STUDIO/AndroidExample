@@ -1,6 +1,7 @@
 #include <jni.h>
 #include <android/log.h>
 #include <cstring>
+#include <string>
 
 // Android Log 标签
 #define LOG_TAG "Unidbg"
@@ -90,4 +91,37 @@ extern "C" JNIEXPORT jint JNICALL Java_com_cyrus_example_unidbg_UnidbgActivity_s
     int length = strlen(str_chars);
     env->ReleaseStringUTFChars(str, str_chars);
     return length;
+}
+
+
+extern "C" JNIEXPORT jstring JNICALL
+Java_com_cyrus_example_unidbg_UnidbgActivity_sign(JNIEnv *env, jobject thiz, jstring content) {
+    // 获取 content 字符串
+    const char *contentChars = env->GetStringUTFChars(content, nullptr);
+
+    // 获取静态变量 a 和 非静态变量 b
+    jclass clazz = env->GetObjectClass(thiz);
+    jfieldID aField = env->GetStaticFieldID(clazz, "a", "Ljava/lang/String;");
+    jfieldID bField = env->GetFieldID(clazz, "b", "Ljava/lang/String;");
+
+    jstring a = (jstring) env->GetStaticObjectField(clazz, aField);
+    jstring b = (jstring) env->GetObjectField(thiz, bField);
+
+    // 将 a, content 和 b 拼接
+    const char *aChars = env->GetStringUTFChars(a, nullptr);
+    const char *bChars = env->GetStringUTFChars(b, nullptr);
+
+    std::string combined = std::string(aChars) + contentChars + std::string(bChars);
+
+    // 释放字符串
+    env->ReleaseStringUTFChars(content, contentChars);
+    env->ReleaseStringUTFChars(a, aChars);
+    env->ReleaseStringUTFChars(b, bChars);
+
+    // 调用 base64 方法
+    jmethodID base64Method = env->GetMethodID(clazz, "base64", "(Ljava/lang/String;)Ljava/lang/String;");
+    jstring combinedStr = env->NewStringUTF(combined.c_str());
+    jstring base64Result = (jstring) env->CallObjectMethod(thiz, base64Method, combinedStr);
+
+    return base64Result;
 }
