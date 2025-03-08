@@ -9,12 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cyrus.example.antidebug.AntiDebug
 import com.cyrus.example.antidebug.AntiDebugActivity
 import com.cyrus.example.assembly.AssemblyActivity
+import com.cyrus.example.base64.Base64Activity
 import com.cyrus.example.frida.disassemble.FridaDisassembleActivity
-import com.cyrus.example.unicorn.UnicornActivity
-import com.cyrus.example.unidbg.UnidbgActivity
 import com.cyrus.example.jniexample.JNIExampleActivity
 import com.cyrus.example.ollvm.OLLVMActivity
 import com.cyrus.example.syscall.SyscallActivity
+import com.cyrus.example.unicorn.UnicornActivity
+import com.cyrus.example.unidbg.UnidbgActivity
 import com.cyrus.example.vmp.VMPActivity
 
 
@@ -112,6 +113,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 UnidbgActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // Base64
+        findViewById<Button>(R.id.button_base64).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                Base64Activity::class.java
             )
             startActivity(intent)
         }

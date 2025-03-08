@@ -188,3 +188,18 @@ add_library( # 设置库的名称
 target_link_libraries( # 将 log 库链接到目标库
         unidbg
         ${log-lib})
+
+## Base64 ##########################################################################################
+
+add_library( # 设置库的名称
+        base64
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        base64.cpp)
+
+target_link_libraries( # 将 log 库链接到目标库
+        base64
+        ${log-lib})
