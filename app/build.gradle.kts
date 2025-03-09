@@ -24,9 +24,9 @@ android {
         }
 
         ndk {
-            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+//            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
 //            abiFilters += "armeabi-v7a"
-//            abiFilters += "arm64-v8a"
+            abiFilters += "arm64-v8a"
         }
     }
 
