@@ -198,7 +198,8 @@ add_library( # 设置库的名称
         SHARED
 
         # 设置源文件路径
-        base64.cpp)
+        base64.cpp
+        custom_base64_alphabet.cpp)
 
 target_link_libraries( # 将 log 库链接到目标库
         base64

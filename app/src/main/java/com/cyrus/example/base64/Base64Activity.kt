@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -41,21 +40,29 @@ class Base64Activity : ComponentActivity() {
         System.loadLibrary("base64")
     }
 
-    // 标准 Base64
+    // 标准 Base64（C++）
     external fun nativeBase64Encode(data: ByteArray): String
     external fun nativeBase64Decode(input: String): ByteArray
+
+    // 自定义 Base64 编码和解码
+    external fun customBase64Encode(data: ByteArray): String
+    external fun customBase64Decode(encoded: String): ByteArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Base64App(::nativeBase64Encode, ::nativeBase64Decode)
+            Base64App(::nativeBase64Encode, ::nativeBase64Decode, ::customBase64Encode, ::customBase64Decode)
         }
     }
 }
 
 
 @Composable
-fun Base64App(encode: (ByteArray) -> String, decode: (String) -> ByteArray) {
+fun Base64App(encode: (ByteArray) -> String,
+              decode: (String) -> ByteArray,
+              customEncode: (ByteArray) -> String,  // 自定义Base64编码
+              customDecode: (String) -> ByteArray   // 自定义Base64解码
+              ) {
     var stringList by remember { mutableStateOf(listOf<String>()) }
     var selectedString by remember { mutableStateOf<String?>(null) }
 
@@ -114,8 +121,7 @@ fun Base64App(encode: (ByteArray) -> String, decode: (String) -> ByteArray) {
                 Button(
                     onClick = {
                         try {
-                            val javaDecoded = Base64.decode(selected, Base64.DEFAULT)
-                            val javaDecodedString = String(javaDecoded)
+                            val javaDecodedString = String(Base64.decode(selected, Base64.DEFAULT))
                             Log.d("Base64", "标准 Base64 解码（Java）: $javaDecodedString")
                             selectedString = javaDecodedString
                         } catch (e: Exception) {
@@ -150,8 +156,7 @@ fun Base64App(encode: (ByteArray) -> String, decode: (String) -> ByteArray) {
                 Button(
                     onClick = {
                         try {
-                            val decodedBytes = decode(selected)
-                            val decodedString = String(decodedBytes)
+                            val decodedString = String(decode(selected))
                             Log.d("Base64", "标准 Base64 解码（C++）: $decodedString")
                             selectedString = decodedString
                         } catch (e: Exception) {
@@ -162,6 +167,41 @@ fun Base64App(encode: (ByteArray) -> String, decode: (String) -> ByteArray) {
                     modifier = Modifier.weight(1f)
                 ) {
                     Text("标准 Base64 解码（C++）", style = MaterialTheme.typography.bodySmall) // 调小文字大小
+                }
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            // 自定义 Base64 编码和解码按钮
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                Button(
+                    onClick = {
+                        val encoded = customEncode(selected.toByteArray())
+                        Log.d("Base64", "自定义Base64 编码后的字符串: $encoded")
+                        selectedString = encoded
+                    },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text("Base64 编码（自定义码表）", style = MaterialTheme.typography.bodySmall)
+                }
+
+                Button(
+                    onClick = {
+                        try {
+                            val decodedString = String(customDecode(selected))
+                            Log.d("Base64", "自定义Base64 解码后的字符串: $decodedString")
+                            selectedString = decodedString
+                        } catch (e: Exception) {
+                            Log.e("Base64", "解码失败: ${e.message}")
+                            selectedString = "解码失败"
+                        }
+                    },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text("Base64 解码（自定义码表）", style = MaterialTheme.typography.bodySmall)
                 }
             }
         }
