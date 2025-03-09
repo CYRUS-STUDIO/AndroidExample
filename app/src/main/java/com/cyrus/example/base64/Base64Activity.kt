@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import kotlin.random.Random
 
 class Base64Activity : ComponentActivity() {
 
@@ -62,13 +63,14 @@ class Base64Activity : ComponentActivity() {
 
 
 @Composable
-fun Base64App(encode: (ByteArray) -> String,
-              decode: (String) -> ByteArray,
-              customEncode: (ByteArray) -> String,  // 自定义Base64编码
-              customDecode: (String) -> ByteArray,   // 自定义Base64解码
-              dynamicBase64Encode: (ByteArray) -> String,  // 动态Base64编码
-              dynamicBase64Decode: (String, Int) -> ByteArray   // 动态Base64解码
-              ) {
+fun Base64App(
+    encode: (ByteArray) -> String,
+    decode: (String) -> ByteArray,
+    customEncode: (ByteArray) -> String,  // 自定义Base64编码
+    customDecode: (String) -> ByteArray,   // 自定义Base64解码
+    dynamicBase64Encode: (ByteArray) -> String,  // 动态Base64编码
+    dynamicBase64Decode: (String, Int) -> ByteArray   // 动态Base64解码
+) {
     var stringList by remember { mutableStateOf(listOf<String>()) }
     var selectedString by remember { mutableStateOf<String?>(null) }
 
@@ -275,11 +277,12 @@ fun StringListItem(text: String, isSelected: Boolean, onClick: () -> Unit) {
 }
 
 
-
-
-fun generateRandomStrings(count: Int): List<String> {
-    val chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+fun generateRandomStrings(count: Int, minLength: Int = 5, maxLength: Int = 15): List<String> {
+    val charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
     return List(count) {
-        (1..8).map { chars.random() }.joinToString("")
+        val length = Random.nextInt(minLength, maxLength + 1) // 生成 [minLength, maxLength] 范围内的随机长度
+        (1..length)
+            .map { charset.random() }
+            .joinToString("")
     }
 }
