@@ -3,7 +3,7 @@
 #include <vector>
 #include <android/log.h>
 
-#define LOG_TAG "Base64Custom"
+#define LOG_TAG "CustomBase64"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 
 // 自定义 Base64 码表

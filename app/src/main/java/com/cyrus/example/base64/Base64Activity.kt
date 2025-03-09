@@ -48,10 +48,14 @@ class Base64Activity : ComponentActivity() {
     external fun customBase64Encode(data: ByteArray): String
     external fun customBase64Decode(encoded: String): ByteArray
 
+    // 动态 Base64 编码和解码
+    external fun dynamicBase64Encode(input: ByteArray): String
+    external fun dynamicBase64Decode(input: String, originalLength: Int): ByteArray
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Base64App(::nativeBase64Encode, ::nativeBase64Decode, ::customBase64Encode, ::customBase64Decode)
+            Base64App(::nativeBase64Encode, ::nativeBase64Decode, ::customBase64Encode, ::customBase64Decode, ::dynamicBase64Encode, ::dynamicBase64Decode)
         }
     }
 }
@@ -61,10 +65,15 @@ class Base64Activity : ComponentActivity() {
 fun Base64App(encode: (ByteArray) -> String,
               decode: (String) -> ByteArray,
               customEncode: (ByteArray) -> String,  // 自定义Base64编码
-              customDecode: (String) -> ByteArray   // 自定义Base64解码
+              customDecode: (String) -> ByteArray,   // 自定义Base64解码
+              dynamicBase64Encode: (ByteArray) -> String,  // 动态Base64编码
+              dynamicBase64Decode: (String, Int) -> ByteArray   // 动态Base64解码
               ) {
     var stringList by remember { mutableStateOf(listOf<String>()) }
     var selectedString by remember { mutableStateOf<String?>(null) }
+
+    // 字符串长度记录，初始化为 0
+    var stringLength by remember { mutableStateOf(0) }
 
     Column(modifier = Modifier.padding(16.dp)) {
         Button(
@@ -202,6 +211,41 @@ fun Base64App(encode: (ByteArray) -> String,
                     modifier = Modifier.weight(1f)
                 ) {
                     Text("Base64 解码（自定义码表）", style = MaterialTheme.typography.bodySmall)
+                }
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            // 动态码表 Base64 按钮
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                Button(
+                    onClick = {
+                        val data = selected.toByteArray()
+                        stringLength = data.size
+                        val encoded = dynamicBase64Encode(data)
+                        Log.d("Base64", "动态码表编码后的字符串: $encoded，字符串长度：$stringLength")
+                        selectedString = encoded
+                    },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text("Base64 编码（动态码表）", style = MaterialTheme.typography.bodySmall)
+                }
+
+                Button(
+                    onClick = {
+                        try {
+                            val decodedBytes = dynamicBase64Decode(selected, stringLength)
+                            val decodedString = String(decodedBytes)
+                            Log.d("Base64", "动态码表解码后的字符串: $decodedString，字符串长度：$stringLength")
+                            selectedString = decodedString
+                        } catch (e: Exception) {
+                            Log.e("Base64", "解码失败: ${e.message}")
+                            selectedString = "解码失败"
+                        }
+                    },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text("Base64 解码（动态码表）", style = MaterialTheme.typography.bodySmall)
                 }
             }
         }

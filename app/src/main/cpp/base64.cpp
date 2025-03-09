@@ -4,10 +4,7 @@
 
 #define TAG "Base64"
 
-static const std::string base64_chars =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        "abcdefghijklmnopqrstuvwxyz"
-        "0123456789+/";
+static const std::string BASE64_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 // 检查字符是否是 Base64 字符
 static inline bool is_base64(unsigned char c) {
@@ -31,7 +28,7 @@ std::string base64_encode(unsigned char const* bytes_to_encode, unsigned int in_
             char_array_4[3] = char_array_3[2] & 0x3f;
 
             for (i = 0; i < 4; i++) {
-                ret += base64_chars[char_array_4[i]];
+                ret += BASE64_ALPHABET[char_array_4[i]];
             }
             i = 0;
         }
@@ -48,7 +45,7 @@ std::string base64_encode(unsigned char const* bytes_to_encode, unsigned int in_
         char_array_4[3] = char_array_3[2] & 0x3f;
 
         for (int j = 0; j < i + 1; j++) {
-            ret += base64_chars[char_array_4[j]];
+            ret += BASE64_ALPHABET[char_array_4[j]];
         }
 
         while ((i++ < 3)) {
@@ -73,7 +70,7 @@ std::string base64_decode(std::string const& encoded_string) {
         in_++;
         if (i == 4) {
             for (i = 0; i < 4; i++) {
-                char_array_4[i] = base64_chars.find(char_array_4[i]);
+                char_array_4[i] = BASE64_ALPHABET.find(char_array_4[i]);
             }
 
             char_array_3[0] = (char_array_4[0] << 2) + ((char_array_4[1] & 0x30) >> 4);
@@ -93,7 +90,7 @@ std::string base64_decode(std::string const& encoded_string) {
         }
 
         for (int j = 0; j < 4; j++) {
-            char_array_4[j] = base64_chars.find(char_array_4[j]);
+            char_array_4[j] = BASE64_ALPHABET.find(char_array_4[j]);
         }
 
         char_array_3[0] = (char_array_4[0] << 2) + ((char_array_4[1] & 0x30) >> 4);
