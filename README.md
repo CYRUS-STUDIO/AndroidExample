@@ -18,3 +18,9 @@
 # [cyrus.jks](cyrus.jks)
 
 密钥 [cyrus.jks](cyrus.jks) 密码 cyrus_studio
+
+# 公众号
+
+公众号：CYRUS STUDIO
+
+<img src="https://cyrus-studio.github.io/blog/gongzhonghao.jpg" width="240">
