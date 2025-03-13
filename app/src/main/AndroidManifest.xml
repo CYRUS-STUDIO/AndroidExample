@@ -17,6 +17,9 @@
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
         <activity
+            android:name=".crc32.CRC32Activity"
+            android:exported="false" />
+        <activity
             android:name=".base64.Base64Activity"
             android:exported="false" />
         <activity

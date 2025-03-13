@@ -10,6 +10,7 @@ import com.cyrus.example.antidebug.AntiDebug
 import com.cyrus.example.antidebug.AntiDebugActivity
 import com.cyrus.example.assembly.AssemblyActivity
 import com.cyrus.example.base64.Base64Activity
+import com.cyrus.example.crc32.CRC32Activity
 import com.cyrus.example.frida.disassemble.FridaDisassembleActivity
 import com.cyrus.example.jniexample.JNIExampleActivity
 import com.cyrus.example.ollvm.OLLVMActivity
@@ -122,6 +123,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 Base64Activity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // CRC32
+        findViewById<Button>(R.id.button_crc32).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                CRC32Activity::class.java
             )
             startActivity(intent)
         }
