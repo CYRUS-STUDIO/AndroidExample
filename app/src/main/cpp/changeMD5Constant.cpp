@@ -252,7 +252,7 @@ extern std::string bytesToHex(const uint8_t *bytes, size_t length);
 
 extern "C"
 JNIEXPORT jstring JNICALL
-Java_com_cyrus_example_md5_MD5Utils_changeConstant(JNIEnv *env, jclass, jstring input) {
+__attribute__((annotate("bcf"))) Java_com_cyrus_example_md5_MD5Utils_changeConstant(JNIEnv *env, jclass, jstring input) {
     const char *inputChars = env->GetStringUTFChars(input, nullptr);
     if (!inputChars) return nullptr;
 
