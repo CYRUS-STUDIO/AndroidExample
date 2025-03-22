@@ -14,6 +14,7 @@
 - [安卓实现魔改版 Base64 算法](https://cyrus-studio.github.io/blog/posts/%E5%AE%89%E5%8D%93%E5%AE%9E%E7%8E%B0%E9%AD%94%E6%94%B9%E7%89%88-base64-%E7%AE%97%E6%B3%95/)
 - [安卓逆向魔改版 Base64 算法还原](https://cyrus-studio.github.io/blog/posts/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91%E9%AD%94%E6%94%B9%E7%89%88-base64-%E7%AE%97%E6%B3%95%E8%BF%98%E5%8E%9F/)
 - [安卓实现魔改版 CRC32 算法](https://cyrus-studio.github.io/blog/posts/%E5%AE%89%E5%8D%93%E5%AE%9E%E7%8E%B0%E9%AD%94%E6%94%B9%E7%89%88-crc32-%E7%AE%97%E6%B3%95/)
+- [Android 自定义变形 MD5 算法](https://cyrus-studio.github.io/blog/posts/android-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%98%E5%BD%A2-md5-%E7%AE%97%E6%B3%95/)
 
 
 # [cyrus.jks](cyrus.jks)
