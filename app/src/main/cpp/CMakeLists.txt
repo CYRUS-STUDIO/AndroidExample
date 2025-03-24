@@ -234,8 +234,25 @@ add_library( # 设置库的名称
 
         # 设置源文件路径
         md5.cpp
-        changeMD5Constant.cpp)
+        md5_change_constant.cpp)
 
 target_link_libraries( # 将 log 库链接到目标库
         md5
+        ${log-lib})
+
+## SHA1 ##########################################################################################
+
+add_library( # 设置库的名称
+        sha1
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        sha1.cpp
+        sha1_jni.cpp
+        sha1_change_constant.cpp)
+
+target_link_libraries( # 将 log 库链接到目标库
+        sha1
         ${log-lib})

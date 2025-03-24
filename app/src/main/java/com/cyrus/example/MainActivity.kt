@@ -12,6 +12,7 @@ import com.cyrus.example.assembly.AssemblyActivity
 import com.cyrus.example.base64.Base64Activity
 import com.cyrus.example.crc32.CRC32Activity
 import com.cyrus.example.md5.MD5Activity
+import com.cyrus.example.sha1.SHA1Activity
 import com.cyrus.example.frida.disassemble.FridaDisassembleActivity
 import com.cyrus.example.jniexample.JNIExampleActivity
 import com.cyrus.example.ollvm.OLLVMActivity
@@ -137,11 +138,20 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // CRC32
+        // MD5
         findViewById<Button>(R.id.button_md5).setOnClickListener {
             val intent = Intent(
                 this@MainActivity,
                 MD5Activity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // SHA1
+        findViewById<Button>(R.id.button_sha1).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                SHA1Activity::class.java
             )
             startActivity(intent)
         }

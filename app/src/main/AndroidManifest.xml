@@ -17,6 +17,9 @@
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
         <activity
+            android:name=".sha1.SHA1Activity"
+            android:exported="false" />
+        <activity
             android:name=".md5.MD5Activity"
             android:exported="false" />
         <activity
