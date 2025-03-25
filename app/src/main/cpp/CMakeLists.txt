@@ -6,8 +6,8 @@ find_library( # Sets the name of the path variable.
         # Specifies the NDK library that you want CMake to locate.
         log)
 
-# 全局启用指令替换
-add_definitions("-mllvm -sub")
+# 全局启用指令替换、字符串加密
+add_definitions("-mllvm -sub -mllvm -sobf")
 
 ## JNI示例 ##########################################################################################
 
