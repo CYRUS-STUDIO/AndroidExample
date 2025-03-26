@@ -125,6 +125,14 @@
                 android:layout_marginTop="12dp"
                 android:text="SHA1" />
 
+
+            <Button
+                android:id="@+id/button_hmac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="HMAC" />
+
         </LinearLayout>
 
     </ScrollView>

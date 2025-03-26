@@ -11,11 +11,12 @@ import com.cyrus.example.antidebug.AntiDebugActivity
 import com.cyrus.example.assembly.AssemblyActivity
 import com.cyrus.example.base64.Base64Activity
 import com.cyrus.example.crc32.CRC32Activity
-import com.cyrus.example.md5.MD5Activity
-import com.cyrus.example.sha1.SHA1Activity
 import com.cyrus.example.frida.disassemble.FridaDisassembleActivity
+import com.cyrus.example.hmac.HMACActivity
 import com.cyrus.example.jniexample.JNIExampleActivity
+import com.cyrus.example.md5.MD5Activity
 import com.cyrus.example.ollvm.OLLVMActivity
+import com.cyrus.example.sha1.SHA1Activity
 import com.cyrus.example.syscall.SyscallActivity
 import com.cyrus.example.unicorn.UnicornActivity
 import com.cyrus.example.unidbg.UnidbgActivity
@@ -152,6 +153,16 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 SHA1Activity::class.java
+            )
+            startActivity(intent)
+        }
+
+
+        // HMAC
+        findViewById<Button>(R.id.button_hmac).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                HMACActivity::class.java
             )
             startActivity(intent)
         }

@@ -19,7 +19,7 @@ typedef struct {
 } MD5_CTX;
 
 void MD5_Init (MD5_CTX *mdContext);
-void MD5_Update (MD5_CTX *mdContext, unsigned char *inBuf, unsigned int inLen);
+void MD5_Update (MD5_CTX *mdContext, const unsigned char *inBuf, unsigned int inLen);
 void MD5_Final (unsigned char hash[], MD5_CTX *mdContext);
 
 #define __MD5_INCLUDE__

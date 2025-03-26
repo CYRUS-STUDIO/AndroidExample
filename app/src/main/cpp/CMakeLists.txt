@@ -256,3 +256,41 @@ add_library( # 设置库的名称
 target_link_libraries( # 将 log 库链接到目标库
         sha1
         ${log-lib})
+
+## SHA256 ##########################################################################################
+
+add_library( # 设置库的名称
+        sha256
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        sha256.cpp)
+
+target_link_libraries( # 将 log 库链接到目标库
+        sha256
+        ${log-lib})
+
+
+## HMAC ##########################################################################################
+
+add_library( # 设置库的名称
+        hmac
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        hmac_md5.cpp
+        hmac_sha256.cpp
+)
+
+target_link_libraries(
+        hmac
+        # 链接 log 库
+        ${log-lib}
+        # 链接 md5 库
+        md5
+        # 链接 sha256 库
+        sha256)
