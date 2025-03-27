@@ -20,7 +20,7 @@ Java_com_cyrus_example_ollvm_OLLVMActivity_bcf(JNIEnv* env, jobject, jstring inp
 
 // fla 方法：两个int相加判断大小并返回结果字符串
 extern "C" JNIEXPORT jstring JNICALL
-__attribute__((annotate("nobcf,fla"))) Java_com_cyrus_example_ollvm_OLLVMActivity_fla(JNIEnv *env, jobject, jint x, jint y) {
+__attribute__((annotate("nobcf,sub"))) Java_com_cyrus_example_ollvm_OLLVMActivity_fla(JNIEnv *env, jobject, jint x, jint y) {
     int sum = x + y;
 
     // 使用字符串流拼接结果

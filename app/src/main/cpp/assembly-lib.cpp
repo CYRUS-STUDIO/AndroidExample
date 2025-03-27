@@ -22,12 +22,14 @@ Java_com_cyrus_example_assembly_AssemblyActivity_encryptString(JNIEnv *env, jobj
     for (jsize i = 0; i < length; i++) {
         jchar c = inputChars[i];
 
+#if defined(__arm__)
         // 使用内联汇编对每个 Unicode 字符的值加 3，实现加密
         asm volatile (
                 "add %0, %1, #3\n"     // 每个字符的 Unicode 值加 3
                 : "=r"(c)              // 输出到 c
                 : "r"(c)               // 输入 c
                 );
+#endif
         encryptedChars[i] = c;
     }
 
@@ -56,13 +58,14 @@ Java_com_cyrus_example_assembly_AssemblyActivity_decryptString(JNIEnv *env, jobj
     jchar *decryptedChars = new jchar[length];
     for (jsize i = 0; i < length; i++) {
         jchar c = inputChars[i];
-
+#if defined(__arm__)
         // 使用内联汇编对每个 Unicode 字符的值减 3，实现解密
         asm volatile (
                 "sub %0, %1, #3\n"     // 每个字符的 Unicode 值减 3
                 : "=r"(c)              // 输出到 c
                 : "r"(c)               // 输入 c
                 );
+#endif
         decryptedChars[i] = c;
     }
 

@@ -9,9 +9,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cyrus.example.antidebug.AntiDebug
 import com.cyrus.example.antidebug.AntiDebugActivity
 import com.cyrus.example.assembly.AssemblyActivity
+import com.cyrus.example.base64.Base64Activity
+import com.cyrus.example.crc32.CRC32Activity
+import com.cyrus.example.frida.disassemble.FridaDisassembleActivity
+import com.cyrus.example.hmac.HMACActivity
 import com.cyrus.example.jniexample.JNIExampleActivity
+import com.cyrus.example.md5.MD5Activity
 import com.cyrus.example.ollvm.OLLVMActivity
+import com.cyrus.example.sha1.SHA1Activity
 import com.cyrus.example.syscall.SyscallActivity
+import com.cyrus.example.unicorn.UnicornActivity
+import com.cyrus.example.unidbg.UnidbgActivity
 import com.cyrus.example.vmp.VMPActivity
 
 
@@ -82,6 +90,79 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 VMPActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // Frida 反汇编
+        findViewById<Button>(R.id.button_frida_disassemble).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                FridaDisassembleActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // Unicorn
+        findViewById<Button>(R.id.button_unicorn).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                UnicornActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // Unidbg
+        findViewById<Button>(R.id.button_unidbg).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                UnidbgActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // Base64
+        findViewById<Button>(R.id.button_base64).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                Base64Activity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // CRC32
+        findViewById<Button>(R.id.button_crc32).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                CRC32Activity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // MD5
+        findViewById<Button>(R.id.button_md5).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                MD5Activity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // SHA1
+        findViewById<Button>(R.id.button_sha1).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                SHA1Activity::class.java
+            )
+            startActivity(intent)
+        }
+
+
+        // HMAC
+        findViewById<Button>(R.id.button_hmac).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                HMACActivity::class.java
             )
             startActivity(intent)
         }

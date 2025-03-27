@@ -24,9 +24,9 @@ android {
         }
 
         ndk {
-            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+//            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
 //            abiFilters += "armeabi-v7a"
-//            abiFilters += "arm64-v8a"
+            abiFilters += "arm64-v8a"
         }
     }
 
@@ -47,11 +47,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         compose = true

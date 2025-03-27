@@ -6,8 +6,8 @@ find_library( # Sets the name of the path variable.
         # Specifies the NDK library that you want CMake to locate.
         log)
 
-# 全局启用指令替换
-add_definitions("-mllvm -sub")
+# 全局启用指令替换、字符串加密
+add_definitions("-mllvm -sub -mllvm -sobf")
 
 ## JNI示例 ##########################################################################################
 
@@ -142,3 +142,155 @@ add_library( # 设置库的名称
 target_link_libraries( # 将 log 库链接到目标库
         vmp-lib
         ${log-lib})
+
+## Frida 反汇编 ##########################################################################################
+
+add_library( # 设置库的名称
+        frida_disassemble
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        frida_disassemble.cpp)
+
+target_link_libraries( # 将 log 库链接到目标库
+        frida_disassemble
+        ${log-lib})
+
+
+## Unicorn ##########################################################################################
+
+add_library( # 设置库的名称
+        unicorn
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        unicorn.cpp)
+
+target_link_libraries( # 将 log 库链接到目标库
+        unicorn
+        ${log-lib})
+
+## Unidbg ##########################################################################################
+
+add_library( # 设置库的名称
+        unidbg
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        unidbg.cpp)
+
+target_link_libraries( # 将 log 库链接到目标库
+        unidbg
+        ${log-lib})
+
+## Base64 ##########################################################################################
+
+add_library( # 设置库的名称
+        base64
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        base64.cpp
+        custom_base64_alphabet.cpp
+        dynamic_base64_alphabet.cpp)
+
+target_link_libraries( # 将 log 库链接到目标库
+        base64
+        ${log-lib})
+
+
+## CRC32 ##########################################################################################
+
+add_library( # 设置库的名称
+        crc32
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        crc32.cpp
+        custom_crc32_table.cpp
+        modified_crc32.cpp)
+
+target_link_libraries( # 将 log 库链接到目标库
+        crc32
+        ${log-lib})
+
+## MD5 ##########################################################################################
+
+add_library( # 设置库的名称
+        md5
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        md5.cpp
+        md5_change_constant.cpp)
+
+target_link_libraries( # 将 log 库链接到目标库
+        md5
+        ${log-lib})
+
+## SHA1 ##########################################################################################
+
+add_library( # 设置库的名称
+        sha1
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        sha1.cpp
+        sha1_jni.cpp
+        sha1_change_constant.cpp)
+
+target_link_libraries( # 将 log 库链接到目标库
+        sha1
+        ${log-lib})
+
+## SHA256 ##########################################################################################
+
+add_library( # 设置库的名称
+        sha256
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        sha256.cpp)
+
+target_link_libraries( # 将 log 库链接到目标库
+        sha256
+        ${log-lib})
+
+
+## HMAC ##########################################################################################
+
+add_library( # 设置库的名称
+        hmac
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        hmac_md5.cpp
+        hmac_sha256.cpp
+)
+
+target_link_libraries(
+        hmac
+        # 链接 log 库
+        ${log-lib}
+        # 链接 md5 库
+        md5
+        # 链接 sha256 库
+        sha256)
