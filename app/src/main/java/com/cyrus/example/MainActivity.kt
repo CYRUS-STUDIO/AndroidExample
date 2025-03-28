@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.cyrus.example.aes.AESActivity
 import com.cyrus.example.antidebug.AntiDebug
 import com.cyrus.example.antidebug.AntiDebugActivity
 import com.cyrus.example.assembly.AssemblyActivity
@@ -163,6 +164,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 HMACActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // AES
+        findViewById<Button>(R.id.button_aes).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                AESActivity::class.java
             )
             startActivity(intent)
         }

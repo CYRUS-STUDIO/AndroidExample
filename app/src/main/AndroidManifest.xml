@@ -17,6 +17,9 @@
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
         <activity
+            android:name=".aes.AESActivity"
+            android:exported="false" />
+        <activity
             android:name=".hmac.HMACActivity"
             android:exported="false" />
         <activity
