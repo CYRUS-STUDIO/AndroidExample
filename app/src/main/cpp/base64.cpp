@@ -1,6 +1,7 @@
 #include <jni.h>
 #include <string>
 #include <android/log.h>
+#include "base64.h"
 
 #define TAG "Base64"
 
@@ -12,7 +13,7 @@ static inline bool is_base64(unsigned char c) {
 }
 
 // Base64 编码函数
-std::string base64_encode(unsigned char const* bytes_to_encode, unsigned int in_len) {
+std::string base64_encode(const unsigned char *bytes_to_encode, int in_len) {
     std::string ret;
     int i = 0;
     int j = 0;
@@ -57,7 +58,7 @@ std::string base64_encode(unsigned char const* bytes_to_encode, unsigned int in_
 }
 
 // Base64 解码函数
-std::string base64_decode(std::string const& encoded_string) {
+std::string base64_decode(std::string const &encoded_string) {
     int in_len = encoded_string.size();
     int i = 0;
     int j = 0;
@@ -106,19 +107,19 @@ std::string base64_decode(std::string const& encoded_string) {
 }
 
 extern "C" JNIEXPORT jstring JNICALL
-Java_com_cyrus_example_base64_Base64Activity_nativeBase64Encode(JNIEnv* env, jobject, jbyteArray input) {
+Java_com_cyrus_example_base64_Base64Activity_nativeBase64Encode(JNIEnv *env, jobject, jbyteArray input) {
     jsize input_len = env->GetArrayLength(input);
-    unsigned char* bytes_to_encode = reinterpret_cast<unsigned char*>(env->GetByteArrayElements(input, nullptr));
+    unsigned char *bytes_to_encode = reinterpret_cast<unsigned char *>(env->GetByteArrayElements(input, nullptr));
 
     std::string encoded = base64_encode(bytes_to_encode, input_len);
 
-    env->ReleaseByteArrayElements(input, reinterpret_cast<jbyte*>(bytes_to_encode), 0);
+    env->ReleaseByteArrayElements(input, reinterpret_cast<jbyte *>(bytes_to_encode), 0);
     return env->NewStringUTF(encoded.c_str());
 }
 
 extern "C" JNIEXPORT jbyteArray JNICALL
-Java_com_cyrus_example_base64_Base64Activity_nativeBase64Decode(JNIEnv* env, jobject, jstring input) {
-    const char* encoded_chars = env->GetStringUTFChars(input, nullptr);
+Java_com_cyrus_example_base64_Base64Activity_nativeBase64Decode(JNIEnv *env, jobject, jstring input) {
+    const char *encoded_chars = env->GetStringUTFChars(input, nullptr);
     std::string encoded_string(encoded_chars);
 
     std::string decoded_string = base64_decode(encoded_string);
@@ -126,7 +127,7 @@ Java_com_cyrus_example_base64_Base64Activity_nativeBase64Decode(JNIEnv* env, job
     env->ReleaseStringUTFChars(input, encoded_chars);
 
     jbyteArray decoded_byte_array = env->NewByteArray(decoded_string.size());
-    env->SetByteArrayRegion(decoded_byte_array, 0, decoded_string.size(), reinterpret_cast<const jbyte*>(decoded_string.c_str()));
+    env->SetByteArrayRegion(decoded_byte_array, 0, decoded_string.size(), reinterpret_cast<const jbyte *>(decoded_string.c_str()));
 
     return decoded_byte_array;
 }
