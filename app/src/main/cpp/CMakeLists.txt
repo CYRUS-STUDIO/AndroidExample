@@ -294,3 +294,45 @@ target_link_libraries(
         md5
         # 链接 sha256 库
         sha256)
+
+## LibTomCrypt ##########################################################################################
+
+
+# 添加 libtomcrypt 头文件路径
+include_directories(libtomcrypt/src/headers)
+
+# 查找 libtomcrypt 所有的 C 文件
+file(GLOB LIBTOMCRYPT_SOURCES
+        libtomcrypt/src/*.c
+        libtomcrypt/src/misc/*.c
+        libtomcrypt/src/misc/crypt/*.c
+        libtomcrypt/src/ciphers/aes/*.c
+        libtomcrypt/src/modes/cbc/*.c
+        libtomcrypt/src/modes/cfb/*.c
+        libtomcrypt/src/modes/ctr/*.c
+        libtomcrypt/src/modes/ecb/*.c
+)
+
+# 编译 LibTomCrypt
+add_library(libtomcrypt STATIC ${LIBTOMCRYPT_SOURCES})
+
+
+## AES ##########################################################################################
+add_library( # 设置库的名称
+        aes
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        aes_jni.cpp
+)
+
+target_link_libraries(
+        aes
+        # 链接 log 库
+        ${log-lib}
+        # 链接 LibTomCrypt
+        libtomcrypt
+)
+
