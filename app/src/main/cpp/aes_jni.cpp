@@ -9,9 +9,6 @@
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 
 
-const char * KEY = "CYRUS STUDIO    ";
-const char * IV = "CYRUS STUDIO    ";
-
 // 将 const char* 转换为字节数组 (IV)
 uint8_t *stringToIV(const char *str) {
     auto iv = new uint8_t[AES_BLOCKLEN];
@@ -58,8 +55,8 @@ __attribute__((annotate("fla"))) Java_com_cyrus_example_aes_NativeAESUtils_aesCB
     int dataLen = env->GetArrayLength(data);
 
     // 转换密钥和 IV 为字节数组
-    uint8_t *keyBytes = stringToSecretKey(KEY);
-    uint8_t *ivBytes = stringToIV(IV);
+    uint8_t *keyBytes = stringToSecretKey("CYRUS STUDIO    ");
+    uint8_t *ivBytes = stringToIV("CYRUS STUDIO    ");
 
     // PKCS5Padding
     int paddedLen = dataLen + 16 - (dataLen % 16);
@@ -113,8 +110,8 @@ __attribute__((annotate("fla"))) Java_com_cyrus_example_aes_NativeAESUtils_aesCB
     }
 
     // 转换密钥和 IV 为字节数组
-    uint8_t *keyBytes = stringToSecretKey(KEY);
-    uint8_t *ivBytes = stringToIV(IV);
+    uint8_t *keyBytes = stringToSecretKey("CYRUS STUDIO    ");
+    uint8_t *ivBytes = stringToIV("CYRUS STUDIO    ");
 
     // 解密
     int cipher_index = register_cipher(&aes_desc);
@@ -175,7 +172,7 @@ __attribute__((annotate("fla"))) Java_com_cyrus_example_aes_NativeAESUtils_aesEC
     int cipher_index = register_cipher(&aes_desc);
 
     // 转换密钥为字节数组
-    uint8_t *keyBytes = stringToSecretKey(KEY);
+    uint8_t *keyBytes = stringToSecretKey("CYRUS STUDIO    ");
 
     if (ecb_start(cipher_index, keyBytes, AES_KEYLEN, 0, &ecb) != CRYPT_OK) {
         LOGD("ecb_start failed.");
@@ -222,7 +219,7 @@ __attribute__((annotate("fla"))) Java_com_cyrus_example_aes_NativeAESUtils_aesEC
     int cipher_index = register_cipher(&aes_desc);
 
     // 转换密钥为字节数组
-    uint8_t *keyBytes = stringToSecretKey(KEY);
+    uint8_t *keyBytes = stringToSecretKey("CYRUS STUDIO    ");
 
     if (ecb_start(cipher_index, keyBytes, AES_KEYLEN, 0, &ecb) != CRYPT_OK) {
         LOGD("ecb_start failed.");
@@ -275,8 +272,8 @@ __attribute__((annotate("fla"))) Java_com_cyrus_example_aes_NativeAESUtils_aesCT
     int cipher_index = register_cipher(&aes_desc);
 
     // 转换密钥和 IV 为字节数组
-    uint8_t *keyBytes = stringToSecretKey(KEY);
-    uint8_t *ivBytes = stringToIV(IV);
+    uint8_t *keyBytes = stringToSecretKey("CYRUS STUDIO    ");
+    uint8_t *ivBytes = stringToIV("CYRUS STUDIO    ");
 
     if (ctr_start(cipher_index, ivBytes, keyBytes, AES_KEYLEN, 0, CTR_COUNTER_LITTLE_ENDIAN, &ctr) != CRYPT_OK) {
         LOGD("ctr_start failed.");
