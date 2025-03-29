@@ -52,7 +52,7 @@ int pkcs5_unpad(uint8_t *data, int dataLen) {
 
 // AES CBC 加密方法
 extern "C" JNIEXPORT jbyteArray JNICALL
-Java_com_cyrus_example_aes_NativeAESUtils_aesCBCEncode(JNIEnv *env, jclass clazz, jbyteArray data) {
+__attribute__((annotate("fla"))) Java_com_cyrus_example_aes_NativeAESUtils_aesCBCEncode(JNIEnv *env, jclass clazz, jbyteArray data) {
 
     uint8_t *dataBytes = (uint8_t *) env->GetByteArrayElements(data, nullptr);
     int dataLen = env->GetArrayLength(data);
@@ -100,7 +100,7 @@ Java_com_cyrus_example_aes_NativeAESUtils_aesCBCEncode(JNIEnv *env, jclass clazz
 
 // AES CBC 解密方法
 extern "C" JNIEXPORT jbyteArray JNICALL
-Java_com_cyrus_example_aes_NativeAESUtils_aesCBCDecode(JNIEnv *env, jclass clazz, jbyteArray data) {
+__attribute__((annotate("fla"))) Java_com_cyrus_example_aes_NativeAESUtils_aesCBCDecode(JNIEnv *env, jclass clazz, jbyteArray data) {
 
     // 获取数据
     uint8_t *dataBytes = (uint8_t *) env->GetByteArrayElements(data, nullptr);
@@ -156,7 +156,7 @@ Java_com_cyrus_example_aes_NativeAESUtils_aesCBCDecode(JNIEnv *env, jclass clazz
 
 // AES ECB 加密
 extern "C" JNIEXPORT jbyteArray JNICALL
-Java_com_cyrus_example_aes_NativeAESUtils_aesECBEncode(
+__attribute__((annotate("fla"))) Java_com_cyrus_example_aes_NativeAESUtils_aesECBEncode(
         JNIEnv *env,
         jclass clazz,
         jbyteArray data
@@ -209,7 +209,7 @@ Java_com_cyrus_example_aes_NativeAESUtils_aesECBEncode(
 
 // AES ECB 解密
 extern "C" JNIEXPORT jbyteArray JNICALL
-Java_com_cyrus_example_aes_NativeAESUtils_aesECBDecode(
+__attribute__((annotate("fla"))) Java_com_cyrus_example_aes_NativeAESUtils_aesECBDecode(
         JNIEnv *env,
         jclass clazz,
         jbyteArray data
@@ -262,7 +262,7 @@ Java_com_cyrus_example_aes_NativeAESUtils_aesECBDecode(
 
 // AES CTR 加密
 extern "C" JNIEXPORT jbyteArray JNICALL
-Java_com_cyrus_example_aes_NativeAESUtils_aesCTREncode(
+__attribute__((annotate("fla"))) Java_com_cyrus_example_aes_NativeAESUtils_aesCTREncode(
         JNIEnv *env,
         jclass clazz,
         jbyteArray data
@@ -310,7 +310,7 @@ Java_com_cyrus_example_aes_NativeAESUtils_aesCTREncode(
 
 // AES CTR 解密
 extern "C" JNIEXPORT jbyteArray JNICALL
-Java_com_cyrus_example_aes_NativeAESUtils_aesCTRDecode(
+__attribute__((annotate("fla"))) Java_com_cyrus_example_aes_NativeAESUtils_aesCTRDecode(
         JNIEnv *env,
         jclass clazz,
         jbyteArray data
