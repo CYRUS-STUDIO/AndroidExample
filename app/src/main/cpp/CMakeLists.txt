@@ -297,7 +297,6 @@ target_link_libraries(
 
 ## LibTomCrypt ##########################################################################################
 
-
 # 添加 libtomcrypt 头文件路径
 include_directories(libtomcrypt/src/headers)
 
@@ -316,7 +315,6 @@ file(GLOB LIBTOMCRYPT_SOURCES
 # 编译 LibTomCrypt
 add_library(libtomcrypt STATIC ${LIBTOMCRYPT_SOURCES})
 
-
 ## AES ##########################################################################################
 add_library( # 设置库的名称
         aes
@@ -328,6 +326,9 @@ add_library( # 设置库的名称
         aes_jni.cpp
 )
 
+# 抹除符号
+set_target_properties(aes PROPERTIES LINK_FLAGS "-Wl,--version-script=${CMAKE_SOURCE_DIR}/hide.map")
+
 target_link_libraries(
         aes
         # 链接 log 库
@@ -335,4 +336,3 @@ target_link_libraries(
         # 链接 LibTomCrypt
         libtomcrypt
 )
-
