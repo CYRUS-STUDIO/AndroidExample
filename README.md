@@ -20,6 +20,7 @@
 - [Android 自定义变形 HMAC 算法](https://cyrus-studio.github.io/blog/posts/android-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%98%E5%BD%A2-hmac-%E7%AE%97%E6%B3%95/)
 - [Android 中实现一个自定义的 AES 算法](https://cyrus-studio.github.io/blog/posts/android-%E4%B8%AD%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84-aes-%E7%AE%97%E6%B3%95/)
 - [Android NDK 编译 so 文件 抹除导出符号 反逆向](https://cyrus-studio.github.io/blog/posts/android-ndk-%E7%BC%96%E8%AF%91-so-%E6%96%87%E4%BB%B6-%E6%8A%B9%E9%99%A4%E5%AF%BC%E5%87%BA%E7%AC%A6%E5%8F%B7-%E5%8F%8D%E9%80%86%E5%90%91/)
+- [Android 下的 ClassLoader 与 双亲委派机制](https://cyrus-studio.github.io/blog/posts/android-%E4%B8%8B%E7%9A%84-classloader-%E4%B8%8E-%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6/)
 
 
 # [cyrus.jks](cyrus.jks)
