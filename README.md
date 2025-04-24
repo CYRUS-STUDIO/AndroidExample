@@ -21,6 +21,8 @@
 - [Android 中实现一个自定义的 AES 算法](https://cyrus-studio.github.io/blog/posts/android-%E4%B8%AD%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84-aes-%E7%AE%97%E6%B3%95/)
 - [Android NDK 编译 so 文件 抹除导出符号 反逆向](https://cyrus-studio.github.io/blog/posts/android-ndk-%E7%BC%96%E8%AF%91-so-%E6%96%87%E4%BB%B6-%E6%8A%B9%E9%99%A4%E5%AF%BC%E5%87%BA%E7%AC%A6%E5%8F%B7-%E5%8F%8D%E9%80%86%E5%90%91/)
 - [Android 下的 ClassLoader 与 双亲委派机制](https://cyrus-studio.github.io/blog/posts/android-%E4%B8%8B%E7%9A%84-classloader-%E4%B8%8E-%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6/)
+- [详解 Android APP 启动流程](https://cyrus-studio.github.io/blog/posts/%E8%AF%A6%E8%A7%A3-android-app-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/)
+- [Android 加壳应用运行流程 与 生命周期类处理方案](https://cyrus-studio.github.io/blog/posts/android-%E5%8A%A0%E5%A3%B3%E5%BA%94%E7%94%A8%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B-%E4%B8%8E-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%B1%BB%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/)
 
 
 # [cyrus.jks](cyrus.jks)
