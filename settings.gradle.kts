@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "AndroidExample"
 include(":app")
 include(":vmp")
+include(":plugin")
