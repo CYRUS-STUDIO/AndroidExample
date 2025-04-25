@@ -17,12 +17,12 @@
         android:theme="@style/Theme.AndroidExample"
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
-
         <activity
-            android:name="com.cyrus.example.plugin.PluginActivity"
-            android:exported="true">
-        </activity>
-
+            android:name=".hotfix.HotFixActivity"
+            android:exported="false" />
+        <activity
+            android:name=".plugin.PluginActivity"
+            android:exported="true"/>
         <activity
             android:name=".classloader.ClassLoaderActivity"
             android:exported="false" />

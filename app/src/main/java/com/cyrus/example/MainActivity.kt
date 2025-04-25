@@ -23,6 +23,7 @@ import com.cyrus.example.unicorn.UnicornActivity
 import com.cyrus.example.unidbg.UnidbgActivity
 import com.cyrus.example.vmp.VMPActivity
 import com.cyrus.example.classloader.ClassLoaderActivity
+import com.cyrus.example.hotfix.HotFixActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -183,6 +184,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 ClassLoaderActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // 热修复
+        findViewById<Button>(R.id.button_hotfix).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                HotFixActivity::class.java
             )
             startActivity(intent)
         }
