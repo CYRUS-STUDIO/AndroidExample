@@ -27,7 +27,13 @@
 
 # [cyrus.jks](cyrus.jks)
 
-密钥 [cyrus.jks](cyrus.jks) 密码 cyrus_studio
+keystore 文件：[cyrus.jks](cyrus.jks)
+
+alias：cyrus_studio
+
+store password：cyrus_studio
+
+key password：cyrus_studio
 
 # 公众号
 
