@@ -1,7 +1,9 @@
+import com.cyrus.example.dex2c.Dex2C
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
+@Dex2C
 object AESUtils {
 
     // 将普通字符串转换为 SecretKey
