@@ -6,8 +6,8 @@ find_library( # Sets the name of the path variable.
         # Specifies the NDK library that you want CMake to locate.
         log)
 
-# 全局启用指令替换、字符串加密
-add_definitions("-mllvm -sub -mllvm -sobf")
+# 全局启用指令替换
+add_definitions("-mllvm -sub")
 
 ## JNI示例 ##########################################################################################
 
@@ -325,6 +325,12 @@ add_library( # 设置库的名称
         # 设置源文件路径
         aes_jni.cpp
 )
+
+# 为 aes 动态库启用字符串加密
+target_compile_options(
+        aes
+        PRIVATE
+        -mllvm -sobf)
 
 # 抹除符号
 set_target_properties(aes PROPERTIES LINK_FLAGS "-Wl,--version-script=${CMAKE_SOURCE_DIR}/hide.map")
