@@ -24,6 +24,7 @@
 - [详解 Android APP 启动流程](https://cyrus-studio.github.io/blog/posts/%E8%AF%A6%E8%A7%A3-android-app-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/)
 - [Android 加壳应用运行流程 与 生命周期类处理方案](https://cyrus-studio.github.io/blog/posts/android-%E5%8A%A0%E5%A3%B3%E5%BA%94%E7%94%A8%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B-%E4%B8%8E-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%B1%BB%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/)
 - [Android APP 热修复原理](https://cyrus-studio.github.io/blog/posts/android-app-%E7%83%AD%E4%BF%AE%E5%A4%8D%E5%8E%9F%E7%90%86/)
+- [使用 Dex2C 加壳保护 Android APK 代码](https://cyrus-studio.github.io/blog/posts/%E4%BD%BF%E7%94%A8-dex2c-%E5%8A%A0%E5%A3%B3%E4%BF%9D%E6%8A%A4-android-apk-%E4%BB%A3%E7%A0%81/)
 
 
 # [cyrus.jks](cyrus.jks)
