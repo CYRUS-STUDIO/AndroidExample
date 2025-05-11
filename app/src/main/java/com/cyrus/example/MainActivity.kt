@@ -23,7 +23,9 @@ import com.cyrus.example.unicorn.UnicornActivity
 import com.cyrus.example.unidbg.UnidbgActivity
 import com.cyrus.example.vmp.VMPActivity
 import com.cyrus.example.classloader.ClassLoaderActivity
+import com.cyrus.example.hook.HookActivity
 import com.cyrus.example.hotfix.HotFixActivity
+import com.cyrus.example.root.RootActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -193,6 +195,24 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 HotFixActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // Hook
+        findViewById<Button>(R.id.button_hook).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                HookActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // Root
+        findViewById<Button>(R.id.button_root).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                RootActivity::class.java
             )
             startActivity(intent)
         }

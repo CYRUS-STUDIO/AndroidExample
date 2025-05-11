@@ -68,12 +68,17 @@ android {
     }
     buildFeatures {
         compose = true
+        prefab = true
     }
     ndkVersion = "27.1.12297006"
 }
 
 dependencies {
     implementation(project(":vmp"))
+    implementation(libs.libsu.core)
+    implementation(libs.libsu.service)
+    implementation(libs.libsu.nio)
+    implementation(libs.shadowhook)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

@@ -19,11 +19,17 @@
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
         <activity
+            android:name=".root.RootActivity"
+            android:exported="false" />
+        <activity
+            android:name=".hook.HookActivity"
+            android:exported="false" />
+        <activity
             android:name=".hotfix.HotFixActivity"
             android:exported="false" />
         <activity
             android:name=".plugin.PluginActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".classloader.ClassLoaderActivity"
             android:exported="false" />

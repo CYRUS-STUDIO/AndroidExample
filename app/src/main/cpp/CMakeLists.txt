@@ -342,3 +342,34 @@ target_link_libraries(
         # 链接 LibTomCrypt
         libtomcrypt
 )
+
+## CyrusStudioHook ##########################################################################################
+
+find_package(shadowhook REQUIRED CONFIG)
+
+add_library( # 设置库的名称
+        cyrus_studio_hook
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        cyrus_studio_hook.cpp
+)
+
+# 为 cyrus_studio_hook 动态库启用字符串加密
+target_compile_options(
+        cyrus_studio_hook
+        PRIVATE
+        -mllvm -sobf)
+
+# 抹除符号
+set_target_properties(aes PROPERTIES LINK_FLAGS "-Wl,--version-script=${CMAKE_SOURCE_DIR}/hide.map")
+
+target_link_libraries(
+        cyrus_studio_hook
+        # 链接 log 库
+        ${log-lib}
+        # 链接 shadowhook
+        shadowhook::shadowhook
+)
