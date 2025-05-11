@@ -26,6 +26,7 @@
 - [Android APP 热修复原理](https://cyrus-studio.github.io/blog/posts/android-app-%E7%83%AD%E4%BF%AE%E5%A4%8D%E5%8E%9F%E7%90%86/)
 - [使用 Dex2C 加壳保护 Android APK 代码](https://cyrus-studio.github.io/blog/posts/%E4%BD%BF%E7%94%A8-dex2c-%E5%8A%A0%E5%A3%B3%E4%BF%9D%E6%8A%A4-android-apk-%E4%BB%A3%E7%A0%81/)
 - [ART 下 Dex 加载流程源码分析 和 通用脱壳点](https://cyrus-studio.github.io/blog/posts/art-%E4%B8%8B-dex-%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E5%92%8C-%E9%80%9A%E7%94%A8%E8%84%B1%E5%A3%B3%E7%82%B9/)
+- [Android Native 函数 Hook 技术介绍](https://cyrus-studio.github.io/blog/posts/android-native-%E5%87%BD%E6%95%B0-hook-%E6%8A%80%E6%9C%AF%E4%BB%8B%E7%BB%8D/)
 
 
 # [cyrus.jks](cyrus.jks)
