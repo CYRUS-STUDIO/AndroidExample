@@ -133,6 +133,42 @@
                 android:layout_marginTop="12dp"
                 android:text="HMAC" />
 
+            <Button
+                android:id="@+id/button_aes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="AES" />
+
+
+            <Button
+                android:id="@+id/button_classloader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="ClassLoader" />
+
+            <Button
+                android:id="@+id/button_hotfix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="热修复" />
+
+            <Button
+                android:id="@+id/button_hook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Hook" />
+
+            <Button
+                android:id="@+id/button_root"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Root" />
+
         </LinearLayout>
 
     </ScrollView>

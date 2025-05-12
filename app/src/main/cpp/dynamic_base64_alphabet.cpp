@@ -7,16 +7,16 @@
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__)
 
 // 标准 Base64 码表
-static const std::string BASE64_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+static const std::string DYNAMIC_BASE64_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 // 根据字符串长度生成 Base64 动态码表
-__attribute__((annotate("fla"))) std::string generateDynamicBase64Alphabet(size_t length) {
+__attribute__((annotate("bcf"))) std::string generateDynamicBase64Alphabet(size_t length) {
     std::string dynamicBase64(64, ' ');
     int xor_key = length % 64;
 
     for (int i = 0; i < 64; i++) {
         int new_index = i ^ xor_key;  // 计算新的索引
-        dynamicBase64[new_index] = BASE64_ALPHABET[i];  // 重新排列字符
+        dynamicBase64[new_index] = DYNAMIC_BASE64_ALPHABET[i];  // 重新排列字符
     }
 
     return dynamicBase64;
@@ -25,7 +25,7 @@ __attribute__((annotate("fla"))) std::string generateDynamicBase64Alphabet(size_
 
 
 // 动态 Base64 编码
-__attribute__((annotate("fla"))) std::string dynamicBase64Encode(const uint8_t* data, size_t length) {
+__attribute__((annotate("bcf"))) std::string dynamicBase64Encode(const uint8_t* data, size_t length) {
     std::string base64Alphabet = generateDynamicBase64Alphabet(length);
     std::string encoded;
     int val = 0, valb = -6;
@@ -46,7 +46,7 @@ __attribute__((annotate("fla"))) std::string dynamicBase64Encode(const uint8_t* 
 
 
 // 动态 Base64 解码
-__attribute__((annotate("fla"))) std::vector<uint8_t> dynamicBase64Decode(const std::string& input, size_t originalLength) {
+__attribute__((annotate("bcf"))) std::vector<uint8_t> dynamicBase64Decode(const std::string& input, size_t originalLength) {
     std::string base64Alphabet = generateDynamicBase64Alphabet(originalLength);
     std::vector<int> T(256, -1);
 
@@ -71,7 +71,7 @@ __attribute__((annotate("fla"))) std::vector<uint8_t> dynamicBase64Decode(const 
 
 // JNI 动态 Base64 编码
 extern "C" JNIEXPORT jstring JNICALL
-__attribute__((annotate("fla"))) Java_com_cyrus_example_base64_Base64Activity_dynamicBase64Encode(JNIEnv* env, jobject, jbyteArray input) {
+Java_com_cyrus_example_base64_Base64Activity_dynamicBase64Encode(JNIEnv* env, jobject, jbyteArray input) {
     jsize length = env->GetArrayLength(input);
     jbyte* data = env->GetByteArrayElements(input, nullptr);
 
@@ -83,7 +83,7 @@ __attribute__((annotate("fla"))) Java_com_cyrus_example_base64_Base64Activity_dy
 
 // JNI 动态 Base64 解码
 extern "C" JNIEXPORT jbyteArray JNICALL
-__attribute__((annotate("fla"))) Java_com_cyrus_example_base64_Base64Activity_dynamicBase64Decode(JNIEnv* env, jobject, jstring input, jint originalLength) {
+Java_com_cyrus_example_base64_Base64Activity_dynamicBase64Decode(JNIEnv* env, jobject, jstring input, jint originalLength) {
     const char* encodedStr = env->GetStringUTFChars(input, nullptr);
     std::vector<uint8_t> decoded = dynamicBase64Decode(std::string(encodedStr), originalLength);
     env->ReleaseStringUTFChars(input, encodedStr);

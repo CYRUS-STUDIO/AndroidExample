@@ -1,0 +1,8 @@
+{
+    global:
+        JNI_*;
+        Java_*;
+
+    local:
+        *;
+};

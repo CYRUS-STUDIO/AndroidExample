@@ -8,6 +8,15 @@ android {
     namespace = "com.cyrus.example"
     compileSdk = 34
 
+    signingConfigs {
+        create("cyrus") {
+            storeFile = rootProject.file("cyrus.jks")
+            storePassword = "cyrus_studio"
+            keyAlias = "cyrus_studio"
+            keyPassword = "cyrus_studio"
+        }
+    }
+
     defaultConfig {
         applicationId = "com.cyrus.example"
         minSdk = 26
@@ -38,7 +47,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            signingConfig = signingConfigs.getByName("cyrus")
+        }
         release {
+            signingConfig = signingConfigs.getByName("cyrus")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -55,12 +68,17 @@ android {
     }
     buildFeatures {
         compose = true
+        prefab = true
     }
     ndkVersion = "27.1.12297006"
 }
 
 dependencies {
     implementation(project(":vmp"))
+    implementation(libs.libsu.core)
+    implementation(libs.libsu.service)
+    implementation(libs.libsu.nio)
+    implementation(libs.shadowhook)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

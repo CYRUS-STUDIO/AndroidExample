@@ -44,6 +44,13 @@ class JNIExampleActivity : AppCompatActivity() {
             val result = stringExample("Hello JNI")
             Toast.makeText(this, "String Result: $result", Toast.LENGTH_SHORT).show()
         }
+
+        // Array 参数示例
+        findViewById<View>(R.id.button_array_example).setOnClickListener { v: View? ->
+            val array = arrayOf(283, this, "HelloWorld")
+            val result = JNIExample.arrayExample(array)
+            Toast.makeText(this, "Array Example Result: $result", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

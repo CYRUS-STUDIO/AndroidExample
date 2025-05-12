@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.cyrus.example.aes.AESActivity
 import com.cyrus.example.antidebug.AntiDebug
 import com.cyrus.example.antidebug.AntiDebugActivity
 import com.cyrus.example.assembly.AssemblyActivity
@@ -21,6 +22,10 @@ import com.cyrus.example.syscall.SyscallActivity
 import com.cyrus.example.unicorn.UnicornActivity
 import com.cyrus.example.unidbg.UnidbgActivity
 import com.cyrus.example.vmp.VMPActivity
+import com.cyrus.example.classloader.ClassLoaderActivity
+import com.cyrus.example.hook.HookActivity
+import com.cyrus.example.hotfix.HotFixActivity
+import com.cyrus.example.root.RootActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -163,6 +168,51 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 HMACActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // AES
+        findViewById<Button>(R.id.button_aes).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                AESActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // ClassLoader
+        findViewById<Button>(R.id.button_classloader).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                ClassLoaderActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // 热修复
+        findViewById<Button>(R.id.button_hotfix).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                HotFixActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // Hook
+        findViewById<Button>(R.id.button_hook).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                HookActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // Root
+        findViewById<Button>(R.id.button_root).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                RootActivity::class.java
             )
             startActivity(intent)
         }
