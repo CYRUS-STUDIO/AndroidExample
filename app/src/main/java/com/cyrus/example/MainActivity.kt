@@ -26,6 +26,7 @@ import com.cyrus.example.classloader.ClassLoaderActivity
 import com.cyrus.example.hook.HookActivity
 import com.cyrus.example.hotfix.HotFixActivity
 import com.cyrus.example.root.RootActivity
+import com.cyrus.example.shell.DexExtractActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -213,6 +214,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 RootActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // 函数抽取壳
+        findViewById<Button>(R.id.button_dex_extract).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                DexExtractActivity::class.java
             )
             startActivity(intent)
         }
