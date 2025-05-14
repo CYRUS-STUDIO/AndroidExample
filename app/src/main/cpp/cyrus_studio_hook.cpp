@@ -8,6 +8,7 @@
 #include "dex/dex_file.h"
 #include "dex/art_method.h"
 #include "dex/class_accessor.h"
+#include <sys/mman.h>
 
 using namespace cyurs;
 
@@ -103,6 +104,33 @@ Java_com_cyrus_example_hook_CyrusStudioHook_dex2oat(JNIEnv *env, jclass,
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+void hexdump(const void *addr, size_t size) {
+    const unsigned char *ptr = (const unsigned char *) addr;
+    char line[100];
+    for (size_t i = 0; i < size; i += 16) {
+        char *p = line;
+        p += sprintf(p, "%08zx  ", i);
+        for (size_t j = 0; j < 16; ++j) {
+            if (i + j < size)
+                p += sprintf(p, "%02x ", ptr[i + j]);
+            else
+                p += sprintf(p, "   ");
+        }
+        p += sprintf(p, " |");
+        for (size_t j = 0; j < 16; ++j) {
+            if (i + j < size) {
+                unsigned char c = ptr[i + j];
+                *p++ = (c >= 32 && c <= 126) ? c : '.';
+            }
+        }
+        *p++ = '|';
+        *p = '\0';
+        LOGI("%s", line);
+    }
+}
+
+typedef unsigned char byte;
+
 void *(*orig_LoadMethod)(void *, void *, void *, void *, void *);
 
 void *my_LoadMethod(void *linker, void *dex_file, void *method, void *klass_handle, void *dst) {
@@ -129,7 +157,7 @@ void *my_LoadMethod(void *linker, void *dex_file, void *method, void *klass_hand
     }
 
     // 打印 DexFile 信息
-    LOGI("[pid=%d][API=%d] enter my_LoadMethod:\n  DexFile Base    = %p\n  DexFile Size    = %zu bytes\n  DexFile Location= %s",
+    LOGI("[pid=%d][API=%d] my_LoadMethod:\n  DexFile Base    = %p\n  DexFile Size    = %zu bytes\n  DexFile Location= %s",
          getpid(), g_sdkLevel, begin, dexSize, location.c_str());
 
     // 调用原始函数，使 ArtMethod 数据填充完成
@@ -150,11 +178,47 @@ void *my_LoadMethod(void *linker, void *dex_file, void *method, void *klass_hand
     }
 
     // 打印 Method 信息
-    LOGI("[pid=%d][API=%d] enter my_LoadMethod:\n"
+    LOGI("[pid=%d][API=%d] my_LoadMethod:\n"
          "  ArtMethod.dex_code_item_offset_ = 0x%x\n"
          "  ArtMethod.dex_method_index_     = %d",
          getpid(), g_sdkLevel, dex_code_item_offset_, dex_method_index_);
 
+    if (dex_method_index_ == 73) { // method_id[73]	java.lang.String com.cyrus.example.plugin.PluginClass.getString()
+
+        // 设置 dex 内存可写
+        int result = mprotect(begin, dexSize, PROT_WRITE);
+        if (result == 0) {
+            LOGI("mprotect succeeded: begin=%p, size=%zu", begin, dexSize);
+        } else {
+            LOGI("mprotect failed: begin=%p, size=%zu, errno=%d", begin, dexSize, errno);
+        }
+
+        // CodeItem 地址
+        byte *code_item_addr = (byte *) begin + dex_code_item_offset_;
+        // insns 地址， 跳过 CodeItem 前 16 字节
+        byte *code_item_start = static_cast<byte *>(code_item_addr) + 16;
+        LOGI("[pid=%d] my_LoadMethod: \n"
+             "  dex_begin      = %p\n"
+             "  dex_size       = %lu\n"
+             "  code_item_off  = 0x%x\n"
+             "  code_item_addr = %p\n"
+             "  code_item_start= %p (addr + 16)",
+             getpid(), begin, dexSize, dex_code_item_offset_, code_item_addr, code_item_start);
+
+        // 打印修改前的字节码
+        hexdump(code_item_start, 6);
+
+        // 回填 CodeItem 指令
+        byte inst[6] = {0x1A, 0x00, 0x87, 0x00, 0x11, 0x00};
+        for (int i = 0; i < sizeof(inst); i++) {
+            code_item_start[i] = inst[i];
+        }
+
+        LOGI("[pid=%d] CodeItem patched successfully at %p", getpid(), code_item_start);
+
+        // 打印修改后的字节码
+        hexdump(code_item_start, 6);
+    }
     return result;
 }
 
