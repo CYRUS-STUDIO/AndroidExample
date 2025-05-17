@@ -95,7 +95,7 @@ Java_com_cyrus_example_jniexample_JNIExample_invokeJavaStaticMethod(JNIEnv *env,
     // 1. 查找 Java 类
     jclass clazz = env->FindClass("com/cyrus/example/jniexample/JNIExample");
     if (clazz == nullptr) {
-        LOGI("No debugger detected.");
+        LOGI("Class not found");
         return env->NewStringUTF("Class not found");
     }
 
