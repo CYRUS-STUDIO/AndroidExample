@@ -9,5 +9,13 @@ class JNIExample {
 
         @JvmStatic
         external fun arrayExample(array: Array<Any>): Any
+
+        @JvmStatic
+        fun helloFromJava(): String{
+            return "hello form java"
+        }
+
+        @JvmStatic
+        external fun invokeJavaStaticMethod(): String
     }
 }

@@ -1,6 +1,10 @@
 #include <jni.h>
 #include <string>
 #include <iostream>
+#include <android/log.h>
+
+#define LOG_TAG "native-lib.cpp"
+#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
 
 
 extern "C" JNIEXPORT jint JNICALL
@@ -81,4 +85,29 @@ Java_com_cyrus_example_jniexample_JNIExample_arrayExample(JNIEnv *env, jclass cl
 
     env->ReleaseStringUTFChars((jstring) thirdElement, thirdString);
     return env->NewStringUTF("Unsupported value");
+}
+
+
+
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_cyrus_example_jniexample_JNIExample_invokeJavaStaticMethod(JNIEnv *env, jclass thiz) {
+    // 1. 查找 Java 类
+    jclass clazz = env->FindClass("com/cyrus/example/jniexample/JNIExample");
+    if (clazz == nullptr) {
+        LOGI("No debugger detected.");
+        return env->NewStringUTF("Class not found");
+    }
+
+    // 2. 获取 Java 方法 ID
+    jmethodID methodId = env->GetStaticMethodID(clazz, "helloFromJava", "()Ljava/lang/String;");
+    if (methodId == nullptr) {
+        LOGI("Method not found");
+        return env->NewStringUTF("Method not found");
+    }
+
+    // 3. 调用 Java 方法
+    jstring resultStr = (jstring) env->CallStaticObjectMethod(clazz, methodId);
+
+    return resultStr;
 }

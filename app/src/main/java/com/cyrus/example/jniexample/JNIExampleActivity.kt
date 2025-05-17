@@ -51,6 +51,12 @@ class JNIExampleActivity : AppCompatActivity() {
             val result = JNIExample.arrayExample(array)
             Toast.makeText(this, "Array Example Result: $result", Toast.LENGTH_SHORT).show()
         }
+
+        // 调用 Java 静态方法示例
+        findViewById<View>(R.id.button_invoke_java_static_method).setOnClickListener { v: View? ->
+            val result = JNIExample.invokeJavaStaticMethod()
+            Toast.makeText(this, "invokeJavaStaticMethod Result: $result", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }
