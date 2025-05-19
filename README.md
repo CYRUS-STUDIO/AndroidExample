@@ -28,6 +28,9 @@
 - [ART 下 Dex 加载流程源码分析 和 通用脱壳点](https://cyrus-studio.github.io/blog/posts/art-%E4%B8%8B-dex-%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E5%92%8C-%E9%80%9A%E7%94%A8%E8%84%B1%E5%A3%B3%E7%82%B9/)
 - [Android Native 函数 Hook 技术介绍](https://cyrus-studio.github.io/blog/posts/android-native-%E5%87%BD%E6%95%B0-hook-%E6%8A%80%E6%9C%AF%E4%BB%8B%E7%BB%8D/)
 - [基于 art 下的类加载机制，实现函数抽取壳](https://cyrus-studio.github.io/blog/posts/%E5%9F%BA%E4%BA%8E-art-%E4%B8%8B%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%87%BD%E6%95%B0%E6%8A%BD%E5%8F%96%E5%A3%B3/)
+- [FART 自动化脱壳框架简介与脱壳点的选择](https://cyrus-studio.github.io/blog/posts/fart-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%84%B1%E5%A3%B3%E6%A1%86%E6%9E%B6%E7%AE%80%E4%BB%8B%E4%B8%8E%E8%84%B1%E5%A3%B3%E7%82%B9%E7%9A%84%E9%80%89%E6%8B%A9/)
+- [FART 主动调用组件设计和源码分析](https://cyrus-studio.github.io/blog/posts/fart-%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8%E7%BB%84%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%92%8C%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/)
+
 
 
 # [cyrus.jks](cyrus.jks)
