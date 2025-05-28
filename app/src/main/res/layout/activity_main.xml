@@ -163,6 +163,13 @@
             android:layout_marginTop="12dp"
             android:text="函数抽取壳" />
 
+        <Button
+            android:id="@+id/button_fart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="FART" />
+
     </LinearLayout>
 
 </ScrollView>

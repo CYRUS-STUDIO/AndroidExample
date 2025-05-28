@@ -11,22 +11,23 @@ import com.cyrus.example.antidebug.AntiDebug
 import com.cyrus.example.antidebug.AntiDebugActivity
 import com.cyrus.example.assembly.AssemblyActivity
 import com.cyrus.example.base64.Base64Activity
+import com.cyrus.example.classloader.ClassLoaderActivity
 import com.cyrus.example.crc32.CRC32Activity
+import com.cyrus.example.fart.FartActivity
 import com.cyrus.example.frida.disassemble.FridaDisassembleActivity
 import com.cyrus.example.hmac.HMACActivity
+import com.cyrus.example.hook.HookActivity
+import com.cyrus.example.hotfix.HotFixActivity
 import com.cyrus.example.jniexample.JNIExampleActivity
 import com.cyrus.example.md5.MD5Activity
 import com.cyrus.example.ollvm.OLLVMActivity
+import com.cyrus.example.root.RootActivity
 import com.cyrus.example.sha1.SHA1Activity
+import com.cyrus.example.shell.DexExtractActivity
 import com.cyrus.example.syscall.SyscallActivity
 import com.cyrus.example.unicorn.UnicornActivity
 import com.cyrus.example.unidbg.UnidbgActivity
 import com.cyrus.example.vmp.VMPActivity
-import com.cyrus.example.classloader.ClassLoaderActivity
-import com.cyrus.example.hook.HookActivity
-import com.cyrus.example.hotfix.HotFixActivity
-import com.cyrus.example.root.RootActivity
-import com.cyrus.example.shell.DexExtractActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -226,5 +227,15 @@ class MainActivity : AppCompatActivity() {
             )
             startActivity(intent)
         }
+
+        // FART
+        findViewById<Button>(R.id.button_fart).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                FartActivity::class.java
+            )
+            startActivity(intent)
+        }
+
     }
 }
