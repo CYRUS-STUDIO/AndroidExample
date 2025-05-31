@@ -373,3 +373,31 @@ target_link_libraries(
         # 链接 shadowhook
         shadowhook::shadowhook
 )
+
+
+## FART ##########################################################################################
+
+add_library( # 设置库的名称
+        fart
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        fart.cpp
+)
+
+# 为 fart 动态库启用字符串加密
+target_compile_options(
+        fart
+        PRIVATE
+        -mllvm -sobf)
+
+# 抹除符号
+set_target_properties(aes PROPERTIES LINK_FLAGS "-Wl,--version-script=${CMAKE_SOURCE_DIR}/hide.map")
+
+target_link_libraries(
+        fart
+        # 链接 log 库
+        ${log-lib}
+)

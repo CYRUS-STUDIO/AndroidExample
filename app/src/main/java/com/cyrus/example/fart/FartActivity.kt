@@ -1,6 +1,7 @@
 package com.cyrus.example.fart
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -13,7 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
 import dalvik.system.DexClassLoader
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * https://github.com/CYRUS-STUDIO/FART
@@ -56,6 +62,76 @@ class FartActivity : ComponentActivity() {
                     .padding(vertical = 6.dp)
             ) {
                 Text(text = "局部变量的 ClassLoader", fontSize = 16.sp)
+            }
+
+            Button(
+                onClick = {
+                    outputText = AntiFART.listLoadedFiles().joinToString("\n")
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 6.dp)
+            ) {
+                Text(text = "读取 /proc/self/maps ", fontSize = 16.sp)
+            }
+
+            Button(
+                onClick = {
+                    outputText = AntiFART.detectFartDlsym().joinToString("\n")
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 6.dp)
+            ) {
+                Text(text = "通过 dlsym 检测 FART 特征", fontSize = 16.sp)
+            }
+
+            Button(
+                onClick = {
+                    // 设置初始状态提示
+                    outputText = "so 文件 FART 特征检测中..."
+
+                    // 在 lifecycleScope 启动协程
+                    this@FartActivity.lifecycleScope.launch {
+                        val result = withContext(Dispatchers.IO) {
+                            AntiFART.detectFartInLoadedSO().joinToString("\n")
+                        }
+                        outputText = if (result.isNullOrBlank()) {
+                            "so 文件没有检测到 FART 特征"
+                        } else {
+                            result
+                        }
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 6.dp)
+            ) {
+                Text(text = "so 文件 FART 特征检测", fontSize = 16.sp)
+            }
+
+            Button(
+                onClick = {
+                    // 设置初始状态提示
+                    outputText = "dex 文件 FART 特征检测中..."
+
+                    // 在 lifecycleScope 启动协程
+                    this@FartActivity.lifecycleScope.launch {
+                        val result = withContext(Dispatchers.IO) {
+                            AntiFART.detectFartInLoadedDex().joinToString("\n")
+                        }
+                        outputText = if (result.isNullOrBlank()) {
+                            "dex 文件没有检测到 FART 特征"
+                        } else {
+                            result
+                        }
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 6.dp)
+            ) {
+                Text(text = "dex 文件 FART 特征检测", fontSize = 16.sp)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
