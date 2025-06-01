@@ -211,12 +211,30 @@ std::string read_file_content(const std::string &path) {
     return buffer;
 }
 
+// 单词边界检查
+bool is_word_boundary(char ch) {
+    return !std::isalnum(static_cast<unsigned char>(ch)) && ch != '_';
+}
+
 // 返回匹配到的特征列表
 std::vector<std::string> get_matched_signatures(const std::string &content, const std::vector<std::string> &patterns) {
     std::vector<std::string> matched;
-    for (const auto &pattern: patterns) {
-        if (content.find(pattern) != std::string::npos) {
-            matched.push_back(pattern);
+    for (const auto &pattern : patterns) {
+        size_t pos = content.find(pattern);
+        if (pos != std::string::npos) {
+            // 类似 DexFile_dumpMethodCode 这种，带 _ 的不需要做边界检查
+            if (pattern.find('_') != std::string::npos) {
+                matched.push_back(pattern);
+            }else{
+                // 单词边界检查
+                // 这样就不会匹配 farther、himmelfart，但可以匹配像 void fart()、"fart"、 call fart 等形式。
+                char prev = (pos == 0) ? '\0' : content[pos - 1];
+                char next = (pos + pattern.length() < content.size()) ? content[pos + pattern.length()] : '\0';
+
+                if (is_word_boundary(prev) && is_word_boundary(next)) {
+                    matched.push_back(pattern);
+                }
+            }
         }
     }
     return matched;
