@@ -51,6 +51,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:text="Call Array Example" />
+
+        <Button
+            android:id="@+id/button_invoke_java_static_method"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Invoke Java Static Method" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
