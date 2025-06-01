@@ -33,6 +33,7 @@
 - [移植 FART 到 Android 10 实现自动化脱壳](https://cyrus-studio.github.io/blog/posts/%E7%A7%BB%E6%A4%8D-fart-%E5%88%B0-android-10-%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E8%84%B1%E5%A3%B3/)
 - [FART 自动化脱壳框架一些 bug 修复记录](https://cyrus-studio.github.io/blog/posts/fart-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%84%B1%E5%A3%B3%E6%A1%86%E6%9E%B6%E4%B8%80%E4%BA%9B-bug-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/)
 - [使用 Frida 增强 FART：实现更强大的 Android 脱壳能力](https://cyrus-studio.github.io/blog/posts/%E4%BD%BF%E7%94%A8-frida-%E5%A2%9E%E5%BC%BA-fart%E5%AE%9E%E7%8E%B0%E6%9B%B4%E5%BC%BA%E5%A4%A7%E7%9A%84-android-%E8%84%B1%E5%A3%B3%E8%83%BD%E5%8A%9B/)
+- [攻防 FART 脱壳：特征检测识别 + 对抗绕过全解析](https://cyrus-studio.github.io/blog/posts/%E6%94%BB%E9%98%B2-fart-%E8%84%B1%E5%A3%B3%E7%89%B9%E5%BE%81%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB-+-%E5%AF%B9%E6%8A%97%E7%BB%95%E8%BF%87%E5%85%A8%E8%A7%A3%E6%9E%90/)
 
 
 
