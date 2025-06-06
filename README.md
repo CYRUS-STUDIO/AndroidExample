@@ -34,6 +34,9 @@
 - [FART 自动化脱壳框架一些 bug 修复记录](https://cyrus-studio.github.io/blog/posts/fart-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%84%B1%E5%A3%B3%E6%A1%86%E6%9E%B6%E4%B8%80%E4%BA%9B-bug-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/)
 - [使用 Frida 增强 FART：实现更强大的 Android 脱壳能力](https://cyrus-studio.github.io/blog/posts/%E4%BD%BF%E7%94%A8-frida-%E5%A2%9E%E5%BC%BA-fart%E5%AE%9E%E7%8E%B0%E6%9B%B4%E5%BC%BA%E5%A4%A7%E7%9A%84-android-%E8%84%B1%E5%A3%B3%E8%83%BD%E5%8A%9B/)
 - [攻防 FART 脱壳：特征检测识别 + 对抗绕过全解析](https://cyrus-studio.github.io/blog/posts/%E6%94%BB%E9%98%B2-fart-%E8%84%B1%E5%A3%B3%E7%89%B9%E5%BE%81%E6%A3%80%E6%B5%8B%E8%AF%86%E5%88%AB-+-%E5%AF%B9%E6%8A%97%E7%BB%95%E8%BF%87%E5%85%A8%E8%A7%A3%E6%9E%90/)
+- [FART 精准脱壳：通过配置文件控制脱壳节奏与范围](https://cyrus-studio.github.io/blog/posts/fart-%E7%B2%BE%E5%87%86%E8%84%B1%E5%A3%B3%E9%80%9A%E8%BF%87%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%8E%A7%E5%88%B6%E8%84%B1%E5%A3%B3%E8%8A%82%E5%A5%8F%E4%B8%8E%E8%8C%83%E5%9B%B4/)
+- [FART 脱壳某大厂 App + CodeItem 修复 dex + 反编译还原源码](https://cyrus-studio.github.io/blog/posts/fart-%E8%84%B1%E5%A3%B3%E6%9F%90%E5%A4%A7%E5%8E%82-app-+-codeitem-%E4%BF%AE%E5%A4%8D-dex-+-%E5%8F%8D%E7%BC%96%E8%AF%91%E8%BF%98%E5%8E%9F%E6%BA%90%E7%A0%81/)
+
 
 
 
