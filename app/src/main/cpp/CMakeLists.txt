@@ -394,10 +394,38 @@ target_compile_options(
         -mllvm -sobf)
 
 # 抹除符号
-set_target_properties(aes PROPERTIES LINK_FLAGS "-Wl,--version-script=${CMAKE_SOURCE_DIR}/hide.map")
+set_target_properties(fart PROPERTIES LINK_FLAGS "-Wl,--version-script=${CMAKE_SOURCE_DIR}/hide.map")
 
 target_link_libraries(
         fart
+        # 链接 log 库
+        ${log-lib}
+)
+
+
+## so脱壳 ##########################################################################################
+
+add_library( # 设置库的名称
+        so_unpack
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        so_unpack/so_unpack.cpp
+)
+
+# 为 so_unpack 动态库启用字符串加密
+target_compile_options(
+        so_unpack
+        PRIVATE
+        -mllvm -sobf)
+
+# 抹除符号
+set_target_properties(so_unpack PROPERTIES LINK_FLAGS "-Wl,--version-script=${CMAKE_SOURCE_DIR}/hide.map")
+
+target_link_libraries(
+        so_unpack
         # 链接 log 库
         ${log-lib}
 )

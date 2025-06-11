@@ -19,6 +19,9 @@
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
         <activity
+            android:name=".so_unpack.SoUnpackActivity"
+            android:exported="false"/>
+        <activity
             android:name=".fart.FartActivity"
             android:exported="false" />
         <activity

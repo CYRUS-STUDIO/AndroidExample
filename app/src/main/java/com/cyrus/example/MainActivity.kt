@@ -24,6 +24,7 @@ import com.cyrus.example.ollvm.OLLVMActivity
 import com.cyrus.example.root.RootActivity
 import com.cyrus.example.sha1.SHA1Activity
 import com.cyrus.example.shell.DexExtractActivity
+import com.cyrus.example.so_unpack.SoUnpackActivity
 import com.cyrus.example.syscall.SyscallActivity
 import com.cyrus.example.unicorn.UnicornActivity
 import com.cyrus.example.unidbg.UnidbgActivity
@@ -237,5 +238,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        // so 脱壳
+        findViewById<Button>(R.id.button_so_shell).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                SoUnpackActivity::class.java
+            )
+            startActivity(intent)
+        }
     }
 }
