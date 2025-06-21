@@ -37,6 +37,9 @@
 - [FART 精准脱壳：通过配置文件控制脱壳节奏与范围](https://cyrus-studio.github.io/blog/posts/fart-%E7%B2%BE%E5%87%86%E8%84%B1%E5%A3%B3%E9%80%9A%E8%BF%87%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%8E%A7%E5%88%B6%E8%84%B1%E5%A3%B3%E8%8A%82%E5%A5%8F%E4%B8%8E%E8%8C%83%E5%9B%B4/)
 - [FART 脱壳某大厂 App + CodeItem 修复 dex + 反编译还原源码](https://cyrus-studio.github.io/blog/posts/fart-%E8%84%B1%E5%A3%B3%E6%9F%90%E5%A4%A7%E5%8E%82-app-+-codeitem-%E4%BF%AE%E5%A4%8D-dex-+-%E5%8F%8D%E7%BC%96%E8%AF%91%E8%BF%98%E5%8E%9F%E6%BA%90%E7%A0%81/)
 - [一文搞懂 SO 脱壳全流程：识别加壳、Frida Dump、原理深入解析](https://cyrus-studio.github.io/blog/posts/%E4%B8%80%E6%96%87%E6%90%9E%E6%87%82-so-%E8%84%B1%E5%A3%B3%E5%85%A8%E6%B5%81%E7%A8%8B%E8%AF%86%E5%88%AB%E5%8A%A0%E5%A3%B3frida-dump%E5%8E%9F%E7%90%86%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90/)
+- [逆向 JNI 函数找不到入口？动态注册定位技巧全解析](https://cyrus-studio.github.io/blog/posts/%E9%80%86%E5%90%91-jni-%E5%87%BD%E6%95%B0%E6%89%BE%E4%B8%8D%E5%88%B0%E5%85%A5%E5%8F%A3%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8C%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7%E5%85%A8%E8%A7%A3%E6%9E%90/)
+- [破解 VMP+OLLVM 混淆：通过 Hook jstring 快速定位加密算法入口](https://cyrus-studio.github.io/blog/posts/%E7%A0%B4%E8%A7%A3-vmp+ollvm-%E6%B7%B7%E6%B7%86%E9%80%9A%E8%BF%87-hook-jstring-%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8D%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E5%85%A5%E5%8F%A3/)
+- [逆向某物 App 登录接口：抓包分析 + Frida Hook 还原加密算法](https://cyrus-studio.github.io/blog/posts/%E9%80%86%E5%90%91%E6%9F%90%E7%89%A9-app-%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E6%8A%93%E5%8C%85%E5%88%86%E6%9E%90-+-frida-hook-%E8%BF%98%E5%8E%9F%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/)
 
 
 
