@@ -177,6 +177,14 @@
             android:layout_marginTop="12dp"
             android:text="so 脱壳" />
 
+
+        <Button
+            android:id="@+id/button_device_fingerprint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="设备指纹" />
+
     </LinearLayout>
 
 </ScrollView>

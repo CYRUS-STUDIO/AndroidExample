@@ -1,4 +1,4 @@
-package com.cyrus.example.frida.disassemble
+package com.cyrus.example.frida_disassemble
 
 import android.os.Bundle
 import android.widget.Button

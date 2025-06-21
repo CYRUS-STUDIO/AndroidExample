@@ -13,8 +13,9 @@ import com.cyrus.example.assembly.AssemblyActivity
 import com.cyrus.example.base64.Base64Activity
 import com.cyrus.example.classloader.ClassLoaderActivity
 import com.cyrus.example.crc32.CRC32Activity
+import com.cyrus.example.device_fingerprint.DeviceFingerprintActivity
 import com.cyrus.example.fart.FartActivity
-import com.cyrus.example.frida.disassemble.FridaDisassembleActivity
+import com.cyrus.example.frida_disassemble.FridaDisassembleActivity
 import com.cyrus.example.hmac.HMACActivity
 import com.cyrus.example.hook.HookActivity
 import com.cyrus.example.hotfix.HotFixActivity
@@ -244,6 +245,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 SoUnpackActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // 设备指纹
+        findViewById<Button>(R.id.button_device_fingerprint).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                DeviceFingerprintActivity::class.java
             )
             startActivity(intent)
         }
