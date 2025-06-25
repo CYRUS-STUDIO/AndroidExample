@@ -5,6 +5,8 @@
 - [Android 下通过触发 SIGTRAP 信号实现反调试](https://cyrus-studio.github.io/blog/posts/android-%E4%B8%8B%E9%80%9A%E8%BF%87%E8%A7%A6%E5%8F%91-sigtrap-%E4%BF%A1%E5%8F%B7%E5%AE%9E%E7%8E%B0%E5%8F%8D%E8%B0%83%E8%AF%95/)
 - [Android 下内联汇编，Android Studio 汇编开发](https://cyrus-studio.github.io/blog/posts/android-%E4%B8%8B%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96android-studio-%E6%B1%87%E7%BC%96%E5%BC%80%E5%8F%91/)
 - [Android下的系统调用 (syscall)，内联汇编syscall](https://cyrus-studio.github.io/blog/posts/android%E4%B8%8B%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8-syscall%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96syscall/)
+- [移植 OLLVM 到 LLVM 18，C&C++代码混淆](https://cyrus-studio.github.io/blog/posts/%E7%A7%BB%E6%A4%8D-ollvm-%E5%88%B0-llvm-18cc++%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86/)
+- [移植 OLLVM 到 LLVM18，修复控制流平坦化报错](https://cyrus-studio.github.io/blog/posts/%E7%A7%BB%E6%A4%8D-ollvm-%E5%88%B0-llvm18%E4%BF%AE%E5%A4%8D%E6%8E%A7%E5%88%B6%E6%B5%81%E5%B9%B3%E5%9D%A6%E5%8C%96%E6%8A%A5%E9%94%99/)
 - [移植 OLLVM 到 Android NDK，Android Studio 中使用 OLLVM](https://cyrus-studio.github.io/blog/posts/%E7%A7%BB%E6%A4%8D-ollvm-%E5%88%B0-android-ndkandroid-studio-%E4%B8%AD%E4%BD%BF%E7%94%A8-ollvm/)
 - [OLLVM 增加 C&C++ 字符串加密功能](https://cyrus-studio.github.io/blog/posts/ollvm-%E5%A2%9E%E5%8A%A0-cc++-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8A%A0%E5%AF%86%E5%8A%9F%E8%83%BD/)
 - [详解如何自定义 Android Dex VMP 保护壳](https://cyrus-studio.github.io/blog/posts/%E8%AF%A6%E8%A7%A3%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89-android-dex-vmp-%E4%BF%9D%E6%8A%A4%E5%A3%B3/)
