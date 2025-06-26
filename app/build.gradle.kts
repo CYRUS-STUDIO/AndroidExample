@@ -75,6 +75,8 @@ android {
 
 dependencies {
     implementation(project(":vmp"))
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
     implementation(libs.libsu.core)
     implementation(libs.libsu.service)
     implementation(libs.libsu.nio)

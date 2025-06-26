@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndroidExample</string>
+    <string name="title_activity_ok_http">OkHttpActivity</string>
 </resources>

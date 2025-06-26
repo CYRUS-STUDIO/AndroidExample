@@ -21,6 +21,7 @@ import com.cyrus.example.hook.HookActivity
 import com.cyrus.example.hotfix.HotFixActivity
 import com.cyrus.example.jniexample.JNIExampleActivity
 import com.cyrus.example.md5.MD5Activity
+import com.cyrus.example.okhttp.OkHttpActivity
 import com.cyrus.example.ollvm.OLLVMActivity
 import com.cyrus.example.root.RootActivity
 import com.cyrus.example.sha1.SHA1Activity
@@ -254,6 +255,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 DeviceFingerprintActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // OkHttp
+        findViewById<Button>(R.id.button_okhttp).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                OkHttpActivity::class.java
             )
             startActivity(intent)
         }
