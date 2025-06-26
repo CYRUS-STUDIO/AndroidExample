@@ -42,6 +42,7 @@
 - [逆向 JNI 函数找不到入口？动态注册定位技巧全解析](https://cyrus-studio.github.io/blog/posts/%E9%80%86%E5%90%91-jni-%E5%87%BD%E6%95%B0%E6%89%BE%E4%B8%8D%E5%88%B0%E5%85%A5%E5%8F%A3%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8C%E5%AE%9A%E4%BD%8D%E6%8A%80%E5%B7%A7%E5%85%A8%E8%A7%A3%E6%9E%90/)
 - [破解 VMP+OLLVM 混淆：通过 Hook jstring 快速定位加密算法入口](https://cyrus-studio.github.io/blog/posts/%E7%A0%B4%E8%A7%A3-vmp+ollvm-%E6%B7%B7%E6%B7%86%E9%80%9A%E8%BF%87-hook-jstring-%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8D%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E5%85%A5%E5%8F%A3/)
 - [逆向某物 App 登录接口：抓包分析 + Frida Hook 还原加密算法](https://cyrus-studio.github.io/blog/posts/%E9%80%86%E5%90%91%E6%9F%90%E7%89%A9-app-%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E6%8A%93%E5%8C%85%E5%88%86%E6%9E%90-+-frida-hook-%E8%BF%98%E5%8E%9F%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/)
+- [全面解析 OkHttp 原理与实战：从拦截器机制到 Frida Hook 打印请求响应](https://cyrus-studio.github.io/blog/posts/%E5%85%A8%E9%9D%A2%E8%A7%A3%E6%9E%90-okhttp-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98%E4%BB%8E%E6%8B%A6%E6%88%AA%E5%99%A8%E6%9C%BA%E5%88%B6%E5%88%B0-frida-hook-%E6%89%93%E5%8D%B0%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94/)
 
 
 
