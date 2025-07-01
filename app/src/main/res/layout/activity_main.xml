@@ -193,6 +193,13 @@
             android:layout_marginTop="12dp"
             android:text="OkHttp" />
 
+        <Button
+            android:id="@+id/button_anti_sniff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="反抓包" />
+
     </LinearLayout>
 
 </ScrollView>

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cyrus.example.aes.AESActivity
 import com.cyrus.example.antidebug.AntiDebug
 import com.cyrus.example.antidebug.AntiDebugActivity
+import com.cyrus.example.antisniff.AntiSniffActivity
 import com.cyrus.example.assembly.AssemblyActivity
 import com.cyrus.example.base64.Base64Activity
 import com.cyrus.example.classloader.ClassLoaderActivity
@@ -264,6 +265,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 OkHttpActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // 反抓包
+        findViewById<Button>(R.id.button_anti_sniff).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                AntiSniffActivity::class.java
             )
             startActivity(intent)
         }

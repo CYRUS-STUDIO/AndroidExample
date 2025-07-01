@@ -75,6 +75,9 @@ android {
 
 dependencies {
     implementation(project(":vmp"))
+    // ViewPager + Tab
+    implementation(libs.accompanist.pager) // 或最新版
+    implementation(libs.accompanist.pager.indicators)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
     implementation(libs.libsu.core)
