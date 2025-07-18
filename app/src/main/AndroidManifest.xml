@@ -20,14 +20,16 @@
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
         <activity
+            android:name=".retrofit.RetrofitActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AndroidExample" />
+        <activity
             android:name=".antisniff.AntiSniffActivity"
             android:exported="false"
-            android:label="@string/title_activity_anti_sniff"
             android:theme="@style/Theme.AndroidExample" />
         <activity
             android:name=".okhttp.OkHttpActivity"
             android:exported="false"
-            android:label="@string/title_activity_ok_http"
             android:theme="@style/Theme.AndroidExample" />
         <activity
             android:name=".device_fingerprint.DeviceFingerprintActivity"

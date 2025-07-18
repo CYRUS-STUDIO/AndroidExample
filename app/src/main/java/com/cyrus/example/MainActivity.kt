@@ -32,6 +32,7 @@ import com.cyrus.example.syscall.SyscallActivity
 import com.cyrus.example.unicorn.UnicornActivity
 import com.cyrus.example.unidbg.UnidbgActivity
 import com.cyrus.example.vmp.VMPActivity
+import com.cyrus.example.retrofit.RetrofitActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -274,6 +275,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 AntiSniffActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // Retrofit
+        findViewById<Button>(R.id.button_retrofit).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                RetrofitActivity::class.java
             )
             startActivity(intent)
         }

@@ -75,11 +75,19 @@ android {
 
 dependencies {
     implementation(project(":vmp"))
+
+    // Retrofit 核心库
+    implementation(libs.retrofit)
+    // JSON 转换器（使用 Gson）
+    implementation(libs.converter.gson)
+    // OkHttp
+    implementation(libs.okhttp)
+    // OkHttp 日志拦截器（可选，用于调试）
+    implementation(libs.logging.interceptor)
+
     // ViewPager + Tab
     implementation(libs.accompanist.pager) // 或最新版
     implementation(libs.accompanist.pager.indicators)
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
     implementation(libs.libsu.core)
     implementation(libs.libsu.service)
     implementation(libs.libsu.nio)
