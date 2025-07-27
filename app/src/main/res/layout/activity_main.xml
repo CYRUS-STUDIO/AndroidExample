@@ -207,6 +207,13 @@
             android:layout_marginTop="12dp"
             android:text="Retrofit" />
 
+        <Button
+            android:id="@+id/button_sohooker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="动态篡改 so 函数返回值" />
+
     </LinearLayout>
 
 </ScrollView>

@@ -429,3 +429,27 @@ target_link_libraries(
         # 链接 log 库
         ${log-lib}
 )
+
+## so hooker ##########################################################################################
+
+find_package(shadowhook REQUIRED CONFIG)
+
+add_library(
+        # 设置库的名称
+        sohooker
+
+        # 设置库的类型
+        SHARED
+
+        # 设置源文件路径
+        sohooker.cpp
+)
+
+target_link_libraries(
+        sohooker
+        # 链接 log 库
+        ${log-lib}
+        # 链接 shadowhook
+        shadowhook::shadowhook
+)
+

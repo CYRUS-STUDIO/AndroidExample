@@ -33,6 +33,7 @@ import com.cyrus.example.unicorn.UnicornActivity
 import com.cyrus.example.unidbg.UnidbgActivity
 import com.cyrus.example.vmp.VMPActivity
 import com.cyrus.example.retrofit.RetrofitActivity
+import com.cyrus.example.sohooker.SoHookerActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -284,6 +285,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 RetrofitActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // 动态篡改 so 函数返回值
+        findViewById<Button>(R.id.button_sohooker).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                SoHookerActivity::class.java
             )
             startActivity(intent)
         }

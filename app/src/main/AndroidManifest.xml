@@ -20,6 +20,10 @@
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
         <activity
+            android:name=".sohooker.SoHookerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AndroidExample" />
+        <activity
             android:name=".retrofit.RetrofitActivity"
             android:exported="false"
             android:theme="@style/Theme.AndroidExample" />
