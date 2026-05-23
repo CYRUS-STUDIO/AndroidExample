@@ -20,6 +20,10 @@
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
         <activity
+            android:name=".webview.WebShellActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AndroidExample" />
+        <activity
             android:name=".fridadetector.FridaDetectorActivity"
             android:exported="false"
             android:theme="@style/Theme.AndroidExample" />

@@ -9,6 +9,20 @@ find_library( # Sets the name of the path variable.
 # 全局启用指令替换
 add_definitions("-mllvm -sub")
 
+## 链接选项 ##########################################################################################
+
+add_link_options(
+
+        # 支持 Android 15+ 16KB Page Size
+        "-Wl,-z,max-page-size=16384"
+
+        # 去除无用符号
+        "-Wl,--gc-sections"
+
+        # 隐藏符号表
+        "-Wl,--strip-all"
+)
+
 ## JNI示例 ##########################################################################################
 
 
@@ -466,6 +480,22 @@ add_library(
 
 target_link_libraries(
         fridadetector
+        # 链接 log 库
+        ${log-lib}
+)
+
+
+## WebView ##########################################################################################
+
+add_library(
+        webshell_bridge
+        SHARED
+        webshell_bridge.cpp
+)
+
+
+target_link_libraries(
+        webshell_bridge
         # 链接 log 库
         ${log-lib}
 )

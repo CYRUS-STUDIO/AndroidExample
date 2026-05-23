@@ -102,6 +102,8 @@ dependencies {
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
+    implementation(libs.androidx.webkit)
+
     // ViewPager + Tab
     implementation(libs.accompanist.pager) // 或最新版
     implementation(libs.accompanist.pager.indicators)

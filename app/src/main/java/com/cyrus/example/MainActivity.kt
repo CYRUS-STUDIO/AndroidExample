@@ -37,6 +37,7 @@ import com.cyrus.example.syscall.SyscallActivity
 import com.cyrus.example.unicorn.UnicornActivity
 import com.cyrus.example.unidbg.UnidbgActivity
 import com.cyrus.example.vmp.VMPActivity
+import com.cyrus.example.webview.WebShellActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -327,6 +328,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 FridaDetectorActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // WebView
+        findViewById<Button>(R.id.button_webview).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                WebShellActivity::class.java
             )
             startActivity(intent)
         }
