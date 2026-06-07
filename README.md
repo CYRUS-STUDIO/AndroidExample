@@ -3,6 +3,12 @@
 安卓逆向相关文章中的示例代码。
 
 文章索引：
+- [OpenSSL 实战：构建安全 HTTP 请求与反抓包体系，保护核心业务数据](https://cyrus-studio.github.io/blog/posts/openssl-%E5%AE%9E%E6%88%98%E6%9E%84%E5%BB%BA%E5%AE%89%E5%85%A8-http-%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%8F%8D%E6%8A%93%E5%8C%85%E4%BD%93%E7%B3%BB%E4%BF%9D%E6%8A%A4%E6%A0%B8%E5%BF%83%E4%B8%9A%E5%8A%A1%E6%95%B0%E6%8D%AE/)
+- [别让 so 裸奔！移植 OLLVM 到 NDK 并集成到 Android Studio](https://cyrus-studio.github.io/blog/posts/%E5%88%AB%E8%AE%A9-so-%E8%A3%B8%E5%A5%94%E7%A7%BB%E6%A4%8D-ollvm-%E5%88%B0-ndk-%E5%B9%B6%E9%9B%86%E6%88%90%E5%88%B0-android-studio/)
+- [某海外短视频 App 抓包失败？深入 Cronet + SSL Pinning 绕过](https://cyrus-studio.github.io/blog/posts/%E6%9F%90%E6%B5%B7%E5%A4%96%E7%9F%AD%E8%A7%86%E9%A2%91-app-%E6%8A%93%E5%8C%85%E5%A4%B1%E8%B4%A5%E6%B7%B1%E5%85%A5-cronet-+-ssl-pinning-%E7%BB%95%E8%BF%87/)
+- [安卓抓包实战：使用 Charles 抓取 App 数据全流程详解](https://cyrus-studio.github.io/blog/posts/%E5%AE%89%E5%8D%93%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%BD%BF%E7%94%A8-charles-%E6%8A%93%E5%8F%96-app-%E6%95%B0%E6%8D%AE%E5%85%A8%E6%B5%81%E7%A8%8B%E8%AF%A6%E8%A7%A3/)
+- [逆向某物 App 登录接口：还原 newSign 算法全流程](https://cyrus-studio.github.io/blog/posts/%E9%80%86%E5%90%91%E6%9F%90%E7%89%A9-app-%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E8%BF%98%E5%8E%9F-newsign-%E7%AE%97%E6%B3%95%E5%85%A8%E6%B5%81%E7%A8%8B/)
+- [用 Dex2C 把 Java 变 Native：Android 代码加固](https://cyrus-studio.github.io/blog/posts/%E7%94%A8-dex2c-%E6%8A%8A-java-%E5%8F%98-nativeandroid-%E4%BB%A3%E7%A0%81%E5%8A%A0%E5%9B%BA/)
 - [基于 tcpdump 解析 Frida 通信协议：实现 frida-server 端口扫描与绕过](https://cyrus-studio.github.io/blog/posts/%E5%9F%BA%E4%BA%8E-tcpdump-%E8%A7%A3%E6%9E%90-frida-%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0-frida-server-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%E4%B8%8E%E7%BB%95%E8%BF%87/)
 - [打造基于 ART 的 Android 函数抽取壳：原理剖析与完整源码实战](https://cyrus-studio.github.io/blog/posts/%E6%89%93%E9%80%A0%E5%9F%BA%E4%BA%8E-art-%E7%9A%84-android-%E5%87%BD%E6%95%B0%E6%8A%BD%E5%8F%96%E5%A3%B3%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E4%B8%8E%E5%AE%8C%E6%95%B4%E6%BA%90%E7%A0%81%E5%AE%9E%E6%88%98/)
 - [动态篡改 so 函数返回值：一篇带你玩转 Android Hook 技术！](https://cyrus-studio.github.io/blog/posts/%E5%8A%A8%E6%80%81%E7%AF%A1%E6%94%B9-so-%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC%E4%B8%80%E7%AF%87%E5%B8%A6%E4%BD%A0%E7%8E%A9%E8%BD%AC-android-hook-%E6%8A%80%E6%9C%AF/)
@@ -21,7 +27,6 @@
 - [利用 Linux 信号机制（SIGTRAP）实现 Android 下的反调试](https://cyrus-studio.github.io/blog/posts/%E5%88%A9%E7%94%A8-linux-%E4%BF%A1%E5%8F%B7%E6%9C%BA%E5%88%B6sigtrap%E5%AE%9E%E7%8E%B0-android-%E4%B8%8B%E7%9A%84%E5%8F%8D%E8%B0%83%E8%AF%95/)
 - [如何防止 so 文件被轻松逆向？精准控制符号导出 + JNI 动态注册](https://cyrus-studio.github.io/blog/posts/%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2-so-%E6%96%87%E4%BB%B6%E8%A2%AB%E8%BD%BB%E6%9D%BE%E9%80%86%E5%90%91%E7%B2%BE%E5%87%86%E6%8E%A7%E5%88%B6%E7%AC%A6%E5%8F%B7%E5%AF%BC%E5%87%BA-+-jni-%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8C/)
 - [C&C++ 代码安全再升级：用 OLLVM 给 so 加上字符串加密保护](https://cyrus-studio.github.io/blog/posts/cc++-%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8%E5%86%8D%E5%8D%87%E7%BA%A7%E7%94%A8-ollvm-%E7%BB%99-so-%E5%8A%A0%E4%B8%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8A%A0%E5%AF%86%E4%BF%9D%E6%8A%A4/)
-- [别让 so 裸奔！移植 OLLVM 到 NDK 并集成到 Android Studio](https://cyrus-studio.github.io/blog/posts/%E5%88%AB%E8%AE%A9-so-%E8%A3%B8%E5%A5%94%E7%A7%BB%E6%A4%8D-ollvm-%E5%88%B0-ndk-%E5%B9%B6%E9%9B%86%E6%88%90%E5%88%B0-android-studio/)
 - [OLLVM 移植 LLVM18 踩坑：一步步调试修复控制流平坦化](https://cyrus-studio.github.io/blog/posts/ollvm-%E7%A7%BB%E6%A4%8D-llvm18-%E8%B8%A9%E5%9D%91%E4%B8%80%E6%AD%A5%E6%AD%A5%E8%B0%83%E8%AF%95%E4%BF%AE%E5%A4%8D%E6%8E%A7%E5%88%B6%E6%B5%81%E5%B9%B3%E5%9D%A6%E5%8C%96/)
 - [OLLVM 移植 LLVM 18 实战，轻松实现 C&C++ 代码混淆](https://cyrus-studio.github.io/blog/posts/ollvm-%E7%A7%BB%E6%A4%8D-llvm-18-%E5%AE%9E%E6%88%98%E8%BD%BB%E6%9D%BE%E5%AE%9E%E7%8E%B0-cc++-%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86/)
 - [LLVM 全面解析：NDK 为什么离不开它？如何亲手编译调试 clang](https://cyrus-studio.github.io/blog/posts/llvm-%E5%85%A8%E9%9D%A2%E8%A7%A3%E6%9E%90ndk-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A6%BB%E4%B8%8D%E5%BC%80%E5%AE%83%E5%A6%82%E4%BD%95%E4%BA%B2%E6%89%8B%E7%BC%96%E8%AF%91%E8%B0%83%E8%AF%95-clang/)
@@ -97,14 +102,11 @@
 - [如何变形 SHA-1 算法？从标准实现到 Android 定制加密实践](https://cyrus-studio.github.io/blog/posts/%E5%A6%82%E4%BD%95%E5%8F%98%E5%BD%A2-sha-1-%E7%AE%97%E6%B3%95%E4%BB%8E%E6%A0%87%E5%87%86%E5%AE%9E%E7%8E%B0%E5%88%B0-android-%E5%AE%9A%E5%88%B6%E5%8A%A0%E5%AF%86%E5%AE%9E%E8%B7%B5/)
 - [如何变形一个 MD5 算法？Android 实现 + OLLVM 防护实战解析](https://cyrus-studio.github.io/blog/posts/%E5%A6%82%E4%BD%95%E5%8F%98%E5%BD%A2%E4%B8%80%E4%B8%AA-md5-%E7%AE%97%E6%B3%95android-%E5%AE%9E%E7%8E%B0-+-ollvm-%E9%98%B2%E6%8A%A4%E5%AE%9E%E6%88%98%E8%A7%A3%E6%9E%90/)
 - [全面解析 Android App 启动流程与事件循环机制底层原理](https://cyrus-studio.github.io/blog/posts/%E5%85%A8%E9%9D%A2%E8%A7%A3%E6%9E%90-android-app-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/)
-- [安卓抓包实战：使用 Charles 抓取 App 数据全流程详解](https://cyrus-studio.github.io/blog/posts/%E5%AE%89%E5%8D%93%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E4%BD%BF%E7%94%A8-charles-%E6%8A%93%E5%8F%96-app-%E6%95%B0%E6%8D%AE%E5%85%A8%E6%B5%81%E7%A8%8B%E8%AF%A6%E8%A7%A3/)
 - [全面解析 OkHttp 原理与实战：从拦截器机制到 Frida Hook 打印请求响应](https://cyrus-studio.github.io/blog/posts/%E5%85%A8%E9%9D%A2%E8%A7%A3%E6%9E%90-okhttp-%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98%E4%BB%8E%E6%8B%A6%E6%88%AA%E5%99%A8%E6%9C%BA%E5%88%B6%E5%88%B0-frida-hook-%E6%89%93%E5%8D%B0%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94/)
 - [手把手教你用 Chrome 断点调试 Frida 脚本，JS 调试不再是黑盒](https://cyrus-studio.github.io/blog/posts/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8-chrome-%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95-frida-%E8%84%9A%E6%9C%ACjs-%E8%B0%83%E8%AF%95%E4%B8%8D%E5%86%8D%E6%98%AF%E9%BB%91%E7%9B%92/)
 - [逆向某物 App 登录接口：热修复逻辑挖掘隐藏参数、接口完整调用](https://cyrus-studio.github.io/blog/posts/%E9%80%86%E5%90%91%E6%9F%90%E7%89%A9-app-%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E7%83%AD%E4%BF%AE%E5%A4%8D%E9%80%BB%E8%BE%91%E6%8C%96%E6%8E%98%E9%9A%90%E8%97%8F%E5%8F%82%E6%95%B0%E6%8E%A5%E5%8F%A3%E5%AE%8C%E6%95%B4%E8%B0%83%E7%94%A8/)
-- [逆向某物 App 登录接口：还原 newSign 算法全流程](https://cyrus-studio.github.io/blog/posts/%E9%80%86%E5%90%91%E6%9F%90%E7%89%A9-app-%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E8%BF%98%E5%8E%9F-newsign-%E7%AE%97%E6%B3%95%E5%85%A8%E6%B5%81%E7%A8%8B/)
 - [逆向某物 App 登录接口：抓包分析 + Frida Hook 还原加密算法](https://cyrus-studio.github.io/blog/posts/%E9%80%86%E5%90%91%E6%9F%90%E7%89%A9-app-%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3%E6%8A%93%E5%8C%85%E5%88%86%E6%9E%90-+-frida-hook-%E8%BF%98%E5%8E%9F%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/)
 - [破解 VMP+OLLVM 混淆：通过 Hook jstring 快速定位加密算法入口](https://cyrus-studio.github.io/blog/posts/%E7%A0%B4%E8%A7%A3-vmp+ollvm-%E6%B7%B7%E6%B7%86%E9%80%9A%E8%BF%87-hook-jstring-%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8D%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E5%85%A5%E5%8F%A3/)
-- [用 Dex2C 把 Java 变 Native：Android 代码加固](https://cyrus-studio.github.io/blog/posts/%E7%94%A8-dex2c-%E6%8A%8A-java-%E5%8F%98-nativeandroid-%E4%BB%A3%E7%A0%81%E5%8A%A0%E5%9B%BA/)
 
 
 # [cyrus.jks](cyrus.jks)
