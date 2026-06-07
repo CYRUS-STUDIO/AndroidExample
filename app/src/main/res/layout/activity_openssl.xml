@@ -18,6 +18,13 @@
         android:layout_height="wrap_content"
         android:text="使用 OpenSSL 获取数据" />
 
+    <Button
+        android:id="@+id/button_fetch_okhttp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="使用 OkHttp 获取数据" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
