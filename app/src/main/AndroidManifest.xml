@@ -121,6 +121,10 @@
             android:name=".jniexample.JNIExampleActivity"
             android:exported="false" />
         <activity
+            android:name=".jnibridge.JNIBridgeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AndroidExample" />
+        <activity
             android:name=".antidebug.AntiDebugActivity"
             android:exported="false"
             android:launchMode="singleTop" />

@@ -21,6 +21,7 @@ import com.cyrus.example.fridadetector.FridaDetectorActivity
 import com.cyrus.example.hmac.HMACActivity
 import com.cyrus.example.hook.HookActivity
 import com.cyrus.example.hotfix.HotFixActivity
+import com.cyrus.example.jnibridge.JNIBridgeActivity
 import com.cyrus.example.jniexample.JNIExampleActivity
 import com.cyrus.example.md5.MD5Activity
 import com.cyrus.example.okhttp.OkHttpActivity
@@ -340,5 +341,15 @@ class MainActivity : AppCompatActivity() {
             )
             startActivity(intent)
         }
+
+        // JNIBridge
+        findViewById<Button>(R.id.button_jnibridge).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                JNIBridgeActivity::class.java
+            )
+            startActivity(intent)
+        }
+
     }
 }

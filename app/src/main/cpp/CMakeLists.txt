@@ -499,3 +499,17 @@ target_link_libraries(
         # 链接 log 库
         ${log-lib}
 )
+
+## JNIBridge ##########################################################################################
+
+add_library(
+        jnibridge
+        SHARED
+        jnibridge/jni_bridge.cpp
+        jnibridge/jnibridge_example.cpp
+)
+
+target_link_libraries(
+        jnibridge
+        ${log-lib}
+)
