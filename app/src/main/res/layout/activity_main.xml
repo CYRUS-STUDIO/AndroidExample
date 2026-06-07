@@ -1,265 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5F5"
     tools:context=".MainActivity"
     tools:ignore="HardcodedText">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:orientation="vertical"
-        android:paddingTop="30dp"
-        android:paddingBottom="30dp">
+        android:padding="16dp">
 
-        <Button
-            android:id="@+id/debugButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="反调试检测" />
+        <!-- 逆向与保护 -->
+        <TextView
+            style="@style/SectionHeader"
+            android:text="逆向分析与安全保护" />
 
-        <Button
-            android:id="@+id/sigtrapAntiDebugButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="SIGTRAP 反调试" />
+        <GridLayout
+            style="@style/CategoryGrid">
 
-        <Button
-            android:id="@+id/button_jni_example"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="JNI Example" />
+            <Button android:id="@+id/debugButton" style="@style/GridButton" android:text="反调试检测" />
+            <Button android:id="@+id/sigtrapAntiDebugButton" style="@style/GridButton" android:text="SIGTRAP 反调试" />
+            <Button android:id="@+id/button_jni_example" style="@style/GridButton" android:text="JNI Example" />
+            <Button android:id="@+id/button_assembly" style="@style/GridButton" android:text="汇编调用" />
+            <Button android:id="@+id/button_syscall" style="@style/GridButton" android:text="系统调用" />
+            <Button android:id="@+id/button_ollvm" style="@style/GridButton" android:text="OLLVM 混淆" />
+            <Button android:id="@+id/button_vmp" style="@style/GridButton" android:text="VMP 保护" />
+            <Button android:id="@+id/button_frida_disassemble" style="@style/GridButton" android:text="Frida 反汇编" />
+            <Button android:id="@+id/button_unicorn" style="@style/GridButton" android:text="Unicorn 模拟" />
+            <Button android:id="@+id/button_unidbg" style="@style/GridButton" android:text="Unidbg 模拟" />
+            <Button android:id="@+id/button_frida_detector" style="@style/GridButton" android:text="Frida 检测" />
 
-        <Button
-            android:id="@+id/button_assembly"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="汇编" />
+        </GridLayout>
 
-        <Button
-            android:id="@+id/button_syscall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="syscall" />
+        <!-- 数据加解密 -->
+        <TextView
+            style="@style/SectionHeader"
+            android:text="数据加解密算法" />
 
-        <Button
-            android:id="@+id/button_ollvm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="OLLVM" />
+        <GridLayout
+            style="@style/CategoryGrid">
 
-        <Button
-            android:id="@+id/button_vmp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="VMP" />
+            <Button android:id="@+id/button_base64" style="@style/GridButton" android:text="Base64" />
+            <Button android:id="@+id/button_crc32" style="@style/GridButton" android:text="CRC32" />
+            <Button android:id="@+id/button_md5" style="@style/GridButton" android:text="MD5" />
+            <Button android:id="@+id/button_sha1" style="@style/GridButton" android:text="SHA1" />
+            <Button android:id="@+id/button_hmac" style="@style/GridButton" android:text="HMAC" />
+            <Button android:id="@+id/button_aes" style="@style/GridButton" android:text="AES 算法" />
 
-        <Button
-            android:id="@+id/button_frida_disassemble"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Frida 反汇编" />
+        </GridLayout>
 
-        <Button
-            android:id="@+id/button_unicorn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Unicorn" />
+        <!-- 系统与开发进阶 -->
+        <TextView
+            style="@style/SectionHeader"
+            android:text="系统底层与框架进阶" />
 
-        <Button
-            android:id="@+id/button_unidbg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Unidbg" />
+        <GridLayout
+            style="@style/CategoryGrid">
 
+            <Button android:id="@+id/button_classloader" style="@style/GridButton" android:text="ClassLoader" />
+            <Button android:id="@+id/button_hotfix" style="@style/GridButton" android:text="热修复演示" />
+            <Button android:id="@+id/button_hook" style="@style/GridButton" android:text="Java Hook" />
+            <Button android:id="@+id/button_root" style="@style/GridButton" android:text="Root 检测" />
+            <Button android:id="@+id/button_dex_extract" style="@style/GridButton" android:text="函数抽取壳" />
+            <Button android:id="@+id/button_fart" style="@style/GridButton" android:text="FART 脱壳" />
+            <Button android:id="@+id/button_so_shell" style="@style/GridButton" android:text="so 脱壳" />
+            <Button android:id="@+id/button_device_fingerprint" style="@style/GridButton" android:text="设备指纹" />
+            <Button android:id="@+id/button_check_signature" style="@style/GridButton" android:text="签名校验" />
+            <Button android:id="@+id/button_permission" style="@style/GridButton" android:text="权限管理" />
 
-        <Button
-            android:id="@+id/button_base64"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Base64" />
+        </GridLayout>
 
-        <Button
-            android:id="@+id/button_crc32"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="CRC32" />
+        <!-- 网络通信与组件 -->
+        <TextView
+            style="@style/SectionHeader"
+            android:text="网络通信与功能组件" />
 
-        <Button
-            android:id="@+id/button_md5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="MD5" />
+        <GridLayout
+            style="@style/CategoryGrid">
 
-        <Button
-            android:id="@+id/button_sha1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="SHA1" />
+            <Button android:id="@+id/button_okhttp" style="@style/GridButton" android:text="OkHttp" />
+            <Button android:id="@+id/button_anti_sniff" style="@style/GridButton" android:text="反抓包/Pin" />
+            <Button android:id="@+id/button_retrofit" style="@style/GridButton" android:text="Retrofit" />
+            <Button android:id="@+id/button_sohooker" style="@style/GridButton" android:text="so 返回值篡改" />
+            <Button android:id="@+id/button_webview" style="@style/GridButton" android:text="WebView JSB" />
+            <Button android:id="@+id/button_jnibridge" style="@style/GridButton" android:text="JNIBridge" />
+            <Button android:id="@+id/button_openssl" style="@style/GridButton" android:text="OpenSSL" />
 
-
-        <Button
-            android:id="@+id/button_hmac"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="HMAC" />
-
-        <Button
-            android:id="@+id/button_aes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="AES" />
-
-
-        <Button
-            android:id="@+id/button_classloader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="ClassLoader" />
-
-        <Button
-            android:id="@+id/button_hotfix"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="热修复" />
-
-        <Button
-            android:id="@+id/button_hook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Hook" />
-
-        <Button
-            android:id="@+id/button_root"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Root" />
-
-        <Button
-            android:id="@+id/button_dex_extract"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="函数抽取壳" />
-
-        <Button
-            android:id="@+id/button_fart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="FART" />
-
-        <Button
-            android:id="@+id/button_so_shell"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="so 脱壳" />
-
-
-        <Button
-            android:id="@+id/button_device_fingerprint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="设备指纹" />
-
-
-        <Button
-            android:id="@+id/button_okhttp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="OkHttp" />
-
-        <Button
-            android:id="@+id/button_anti_sniff"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="反抓包" />
-
-        <Button
-            android:id="@+id/button_retrofit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Retrofit" />
-
-        <Button
-            android:id="@+id/button_sohooker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="动态篡改 so 函数返回值" />
-
-        <Button
-            android:id="@+id/button_check_signature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="签名校验" />
-
-
-        <Button
-            android:id="@+id/button_permission"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="权限管理" />
-
-
-
-        <Button
-            android:id="@+id/button_frida_detector"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Frida检测" />
-
-
-        <Button
-            android:id="@+id/button_webview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="WebView" />
-
-        <Button
-            android:id="@+id/button_jnibridge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="JNIBridge" />
-
-        <Button
-            android:id="@+id/button_openssl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="OpenSSL" />
-
+        </GridLayout>
 
     </LinearLayout>
 
