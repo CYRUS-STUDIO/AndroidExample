@@ -129,6 +129,10 @@
             android:exported="false"
             android:launchMode="singleTop" />
         <activity
+            android:name=".openssl.OpenSSLActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AndroidExample" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

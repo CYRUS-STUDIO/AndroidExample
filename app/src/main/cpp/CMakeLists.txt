@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 3.4.1)
+cmake_minimum_required(VERSION 3.22.1)
+
+project(AndroidExample)
 
 find_library( # Sets the name of the path variable.
         log-lib
@@ -41,7 +43,8 @@ target_link_libraries( # Specifies the target library.
 
         # Links the target library to the log library
         # included in the NDK.
-        ${log-lib})
+        ${log-lib}
+        OpenSSL::Utils)
 
 ## 反调试 ###########################################################################################
 
@@ -512,4 +515,20 @@ add_library(
 target_link_libraries(
         jnibridge
         ${log-lib}
+)
+
+## OpenSSL ##########################################################################################
+
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../../../../openssl openssl)
+
+add_library(
+        openssl-jni
+        SHARED
+        openssl_jni.cpp
+)
+
+target_link_libraries(
+        openssl-jni
+        ${log-lib}
+        OpenSSL::Utils
 )

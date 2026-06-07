@@ -26,6 +26,7 @@ import com.cyrus.example.jniexample.JNIExampleActivity
 import com.cyrus.example.md5.MD5Activity
 import com.cyrus.example.okhttp.OkHttpActivity
 import com.cyrus.example.ollvm.OLLVMActivity
+import com.cyrus.example.openssl.OpenSSLActivity
 import com.cyrus.example.permission.PermissionActivity
 import com.cyrus.example.retrofit.RetrofitActivity
 import com.cyrus.example.root.RootActivity
@@ -347,6 +348,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this@MainActivity,
                 JNIBridgeActivity::class.java
+            )
+            startActivity(intent)
+        }
+
+        // OpenSSL
+        findViewById<Button>(R.id.button_openssl).setOnClickListener {
+            val intent = Intent(
+                this@MainActivity,
+                OpenSSLActivity::class.java
             )
             startActivity(intent)
         }

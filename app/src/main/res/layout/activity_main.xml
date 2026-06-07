@@ -253,6 +253,13 @@
             android:layout_marginTop="12dp"
             android:text="JNIBridge" />
 
+        <Button
+            android:id="@+id/button_openssl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="OpenSSL" />
+
 
     </LinearLayout>
 

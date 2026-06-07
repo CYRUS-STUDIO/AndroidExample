@@ -1,0 +1,2 @@
+// 这是一个纯 C++ 预编译库模块，不需要 Android 编译插件
+// 仅为了在 settings.gradle 中 include 并提供路径参考
